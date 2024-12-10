@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
+import Image from "next/image";
 
 export default function Landing() {
   return (
@@ -29,12 +30,17 @@ export default function Landing() {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    Your story starts with us.
+                    Welcome to IMS Services
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
-                    This is a simple example of a Landing Page you can build
-                    using Notus NextJS. It features multiple CSS components
-                    based on the Tailwind CSS design system.
+                    IMS Services is a leading international student recruitment
+                    agency with headquarters in Dhaka and global offices across
+                    United Kingdom (London), United States (New York), and
+                    Australia (Melbourne). Our main focus is on the
+                    international student market, aiming to create exceptional
+                    opportunities for our students. We have successfully placed
+                    candidates in top universities across various sectors, such
+                    as law, economics, medicine, engineering, and business.
                   </p>
                 </div>
               </div>
@@ -68,9 +74,17 @@ export default function Landing() {
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                      <i className="fas fa-award"></i>
+                      {/* <i className="fas fa-award"></i> */}
+                      <Image
+                        src={"/icon/school.png"}
+                        alt="college"
+                        width={100}
+                        height={100}
+                      />
                     </div>
-                    <h6 className="text-xl font-semibold">Awarded Agency</h6>
+                    <h6 className="text-xl font-semibold">
+                      College & University Admission
+                    </h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
                       Divide details about your product or agency work into
                       parts. A paragraph describing a feature will be enough.
@@ -83,9 +97,17 @@ export default function Landing() {
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400">
-                      <i className="fas fa-retweet"></i>
+                      {/* <i className="fas fa-retweet"></i> */}
+                      <Image
+                        src={"/icon/study.png"}
+                        alt="college"
+                        width={100}
+                        height={100}
+                      />
                     </div>
-                    <h6 className="text-xl font-semibold">Free Revisions</h6>
+                    <h6 className="text-xl font-semibold">
+                      Scholarship Assistance
+                    </h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
                       Keep you user engaged by providing meaningful information.
                       Remember that by this time, the user is curious.
@@ -97,10 +119,84 @@ export default function Landing() {
               <div className="pt-6 w-full md:w-4/12 px-4 text-center">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
-                      <i className="fas fa-fingerprint"></i>
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-teal-200">
+                      {/* <i className="fas fa-fingerprint"></i> */}
+                      <Image
+                        src={"/icon/graph.png"}
+                        alt="college"
+                        width={100}
+                        height={100}
+                      />
                     </div>
-                    <h6 className="text-xl font-semibold">Verified Company</h6>
+                    <h6 className="text-xl font-semibold">
+                      Financial Documentation Guidance
+                    </h6>
+                    <p className="mt-2 mb-4 text-blueGray-500">
+                      Write a few lines about each one. A paragraph describing a
+                      feature will be enough. Keep you user engaged!
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="pt-6 w-full md:w-4/12 px-4 text-center">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-yellow-500">
+                      {/* <i className="fas fa-fingerprint"></i> */}
+                      <Image
+                        src={"/icon/study.png"}
+                        alt="college"
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                    <h6 className="text-xl font-semibold">
+                      Career Counselling
+                    </h6>
+                    <p className="mt-2 mb-4 text-blueGray-500">
+                      Write a few lines about each one. A paragraph describing a
+                      feature will be enough. Keep you user engaged!
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full md:w-4/12 px-4 text-center">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-gray-200">
+                      {/* <i className="fas fa-fingerprint"></i> */}
+                      <Image
+                        src={"/icon/docs.png"}
+                        alt="college"
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                    <h6 className="text-xl font-semibold">Visa Services</h6>
+                    <p className="mt-2 mb-4 text-blueGray-500">
+                      Write a few lines about each one. A paragraph describing a
+                      feature will be enough. Keep you user engaged!
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6 w-full md:w-4/12 px-4 text-center">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
+                      {/* <i className="fas fa-fingerprint"></i> */}
+                      <Image
+                        src={"/icon/report.png"}
+                        alt="college"
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                    <h6 className="text-xl font-semibold">
+                      Test Preparation Classes
+                    </h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
                       Write a few lines about each one. A paragraph describing a
                       feature will be enough. Keep you user engaged!
