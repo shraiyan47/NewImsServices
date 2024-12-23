@@ -1,0 +1,61 @@
+.sectionStatics {
+  background: url('/img/ims service cover photo.jpg') no-repeat center center / cover;
+  padding: 50px 0;
+  position: relative;
+}
+
+.glassEffect {
+  backdrop-filter: blur(5px);
+  background: rgba(162, 168, 207, 0.208);
+  border-radius: 16px;
+  padding: 50px 0;
+  /* max-width: 100%; */
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.circle {
+  width: 180px;
+  height: 180px;
+  background: rgba(58, 64, 154, 0.843);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.textStatics {
+  padding: 10px;
+  color: #FFFFFF;
+  font-family: "Roboto Slab", Sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.1em;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.textNumber {
+  color: #FFFFFF;
+  font-family: "Roboto", Sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+
+}
+
+.textContainer {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column-reverse;
+}

@@ -3,12 +3,19 @@ import Link from "next/link";
 // components
 
 import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
+import Image from "next/image";
 
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
-      <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
+      <nav
+        className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg backdrop-filter backdrop-blur-md bg-opacity-50 fixed top-0"
+        style={{
+          backdropFilter: "blur(15px)",
+          background: "rgba(185, 255, 212, 0.44)",
+        }}
+      >
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link legacyBehavior href="/">
@@ -16,7 +23,13 @@ export default function Navbar(props) {
                 className="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
                 href="#pablo"
               >
-                Notus NextJS
+                {/* IMS Services */}
+                <Image
+                  src={"/img/logo.png"}
+                  alt="IMS SERVICES"
+                  height={100}
+                  width={200}
+                />
               </a>
             </Link>
             <button
@@ -34,7 +47,7 @@ export default function Navbar(props) {
             }
             id="example-navbar-warning"
           >
-            <ul className="flex flex-col lg:flex-row list-none mr-auto">
+            {/* <ul className="flex flex-col lg:flex-row list-none mr-auto">
               <li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
@@ -44,7 +57,7 @@ export default function Navbar(props) {
                   Docs
                 </a>
               </li>
-            </ul>
+            </ul> */}
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="flex items-center">
                 <PagesDropdown />

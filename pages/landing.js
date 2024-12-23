@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 // components
@@ -6,18 +6,49 @@ import Link from "next/link";
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import Image from "next/image";
+import CustomAutoSlider from "components/Slider/Slider";
+
+import x from "./landing.module.css";
 
 export default function Landing() {
+  const cards = [
+    {
+      img: "/img/angular.jpg",
+      title: "Top Notch Services",
+      description:
+        "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever happens.",
+    },
+    {
+      img: "/img/bootstrap.jpg",
+      title: "Outstanding Support",
+      description:
+        "Experience unparalleled support for your business needs. Our team is dedicated to providing top-notch service tailored to your goals.",
+    },
+    {
+      img: "/img/login.jpg",
+      title: "Innovative Solutions",
+      description:
+        "We deliver innovative solutions to complex challenges, ensuring your business remains ahead of the curve in a competitive landscape.",
+    },
+  ];
+
+  const sampleImage = [
+    "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/19/16/graduates-inequality.jpg",
+    "https://ukstudycentre.co.uk/wp-content/uploads/2018/09/c1.jpg",
+    "https://www.kenilworthglobalconsulting.com/wp-content/uploads/2022/05/Best-Universities-in-UK-1.jpeg",
+  ];
+
+  const destination = {};
+
   return (
     <>
-      <Navbar transparent />
+      <Navbar  />
       <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
+              backgroundImage: "url('/img/ims service cover photo.jpg')",
             }}
           >
             <span
@@ -67,6 +98,8 @@ export default function Landing() {
           </div>
         </div>
 
+        {/* Services */}
+
         <section className="pb-20 bg-blueGray-200 -mt-24">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap">
@@ -75,7 +108,7 @@ export default function Landing() {
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
                       {/* <i className="fas fa-award"></i> */}
-                      <Image
+                      <img
                         src={"/icon/school.png"}
                         alt="college"
                         width={100}
@@ -207,6 +240,7 @@ export default function Landing() {
             </div>
 
             <div className="flex flex-wrap items-center mt-32">
+              {/* Left Text */}
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
                 <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
                   <i className="fas fa-user-friends text-xl"></i>
@@ -215,13 +249,13 @@ export default function Landing() {
                   Working with us is a pleasure
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  Don't let your uses guess by attaching tooltips and popoves to
-                  any element. Just make sure you enable them first via
+                  Don't let your users guess by attaching tooltips and popovers
+                  to any element. Just make sure you enable them first via
                   JavaScript.
                 </p>
                 <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
                   The kit comes with three pre-built pages to help you get
-                  started faster. You can change the text and images and you're
+                  started faster. You can change the text and images, and you're
                   good to go. Just make sure you enable them first via
                   JavaScript.
                 </p>
@@ -232,34 +266,144 @@ export default function Landing() {
                 </Link>
               </div>
 
-              <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-blueGray-700">
+              {/* Right Card Slider */}
+              <CustomAutoSlider />
+            </div>
+          </div>
+        </section>
+
+        <section className="pt-20 pb-48">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap">
+              <div className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  ">
+                <div className="px-6 py-6 border-2">
                   <img
                     alt="..."
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80"
-                    className="w-full align-middle rounded-t-lg"
+                    src="/img/team-1-800x800.jpg"
+                    className="shadow-lg   mx-auto max-w-120-px"
                   />
-                  <blockquote className="relative p-8 mb-4">
-                    <svg
-                      preserveAspectRatio="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 583 95"
-                      className="absolute left-0 w-full block h-95-px -top-94-px"
-                    >
-                      <polygon
-                        points="-30,95 583,95 583,65"
-                        className="text-blueGray-700 fill-current"
-                      ></polygon>
-                    </svg>
-                    <h4 className="text-xl font-bold text-white">
-                      Top Notch Services
-                    </h4>
-                    <p className="text-md font-light mt-2 text-white">
-                      The Arctic Ocean freezes every winter and much of the
-                      sea-ice then thaws every summer, and that process will
-                      continue whatever happens.
+                  <div className="pt-6 text-center">
+                    <h5 className="text-xl font-bold">Study in UK</h5>
+                    <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
+                      United Kingdom
                     </p>
-                  </blockquote>
+                    <div className="mt-6">
+                      <button
+                        className=" bg-black text-white w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
+                        type="button"
+                      >
+                        {/* <i className="fab fa-twitter"></i> */}
+                        Learn More
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  ">
+                <div className="px-6 py-6 border-2">
+                  <img
+                    alt="..."
+                    src="/img/team-1-800x800.jpg"
+                    className="shadow-lg   mx-auto max-w-120-px"
+                  />
+                  <div className="pt-6 text-center">
+                    <h5 className="text-xl font-bold">Study in UK</h5>
+                    <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
+                      United Kingdom
+                    </p>
+                    <div className="mt-6">
+                      <button
+                        className=" bg-black text-white w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
+                        type="button"
+                      >
+                        {/* <i className="fab fa-twitter"></i> */}
+                        Learn More
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  ">
+                <div className="px-6 py-6 border-2">
+                  <img
+                    alt="..."
+                    src="/img/team-1-800x800.jpg"
+                    className="shadow-lg   mx-auto max-w-120-px"
+                  />
+                  <div className="pt-6 text-center">
+                    <h5 className="text-xl font-bold">Study in UK</h5>
+                    <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
+                      United Kingdom
+                    </p>
+                    <div className="mt-6">
+                      <button
+                        className=" bg-black text-white w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
+                        type="button"
+                      >
+                        {/* <i className="fab fa-twitter"></i> */}
+                        Learn More
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  ">
+                <div className="px-6 py-6 border-2">
+                  <img
+                    alt="..."
+                    src="/img/team-1-800x800.jpg"
+                    className="shadow-lg   mx-auto max-w-120-px"
+                  />
+                  <div className="pt-6 text-center">
+                    <h5 className="text-xl font-bold">Study in UK</h5>
+                    <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
+                      United Kingdom
+                    </p>
+                    <div className="mt-6">
+                      <button
+                        className=" bg-black text-white w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
+                        type="button"
+                      >
+                        {/* <i className="fab fa-twitter"></i> */}
+                        Learn More
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="pt-20 pb-48 ">
+          <div className={x.sectionStatics}>
+            <div className={x.glassEffect}>
+              <div className={x.circle}>
+                <div className={x.textContainer}>
+                  <p className={x.textStatics}>Universities</p>
+                  <p className={x.textNumber}>20+</p>
+                </div>
+              </div>
+              <div className={x.circle}>
+                <div className={x.textContainer}>
+                  <p className={x.textStatics}>Global Offices</p>
+                  <p className={x.textNumber}>5+</p>
+                </div>
+              </div>
+              <div className={x.circle}>
+                <div className={x.textContainer}>
+                  <p className={x.textStatics}>UK EDU EXPO</p>
+                  <p className={x.textNumber}>120+</p>
+                </div>
+              </div>
+
+              <div className={x.circle}>
+                <div className={x.textContainer}>
+                  <p className={x.textStatics}>Free Service</p>
+                  <p className={x.textNumber}>100%</p>
                 </div>
               </div>
             </div>
@@ -370,7 +514,7 @@ export default function Landing() {
               </div>
             </div>
             <div className="flex flex-wrap">
-              <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+              <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4 py-6 border-2">
                 <div className="px-6">
                   <img
                     alt="..."
@@ -588,6 +732,7 @@ export default function Landing() {
             </div>
           </div>
         </section>
+
         <section className="relative block py-24 lg:pt-0 bg-blueGray-800">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
