@@ -42,11 +42,11 @@ export default function Landing() {
 
   return (
     <>
-      <Navbar  />
+      <Navbar />
       <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
-            className="absolute top-0 w-full h-full bg-center bg-cover"
+            className="absolute w-full h-full bg-center bg-cover"
             style={{
               backgroundImage: "url('/img/ims service cover photo.jpg')",
             }}
@@ -56,7 +56,7 @@ export default function Landing() {
               className="w-full h-full absolute opacity-75 bg-black"
             ></span>
           </div>
-          <div className="container relative mx-auto">
+          <div className="container relative mx-auto mt-12">
             <div className="items-center flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
@@ -97,10 +97,8 @@ export default function Landing() {
             </svg>
           </div>
         </div>
-
         {/* Services */}
-
-        <section className="pb-20 bg-blueGray-200 -mt-24">
+        <section className="pb-30 bg-blueGray-200 -mt-24">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap">
               <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
@@ -238,49 +236,46 @@ export default function Landing() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            <div className="flex flex-wrap items-center mt-32">
-              {/* Left Text */}
-              <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
-                <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
-                  <i className="fas fa-user-friends text-xl"></i>
+        {/* Find You Destination */}
+        <section className="pt-10 pb-20 ">
+          <div className={x.sectionFindDestination}>
+            <div className={x.findDestinationBoxPosition}>
+              <div className={x.findDestinationBox}>
+                <div className={x.textContainer}>
+                  <p className={x.textStatics}>
+                    Browse top destinations from over 120 universities worldwide
+                  </p>
+
+                  <p className={x.findDestinationText}>Find your destination</p>
                 </div>
-                <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Working with us is a pleasure
-                </h3>
-                <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  Don't let your users guess by attaching tooltips and popovers
-                  to any element. Just make sure you enable them first via
-                  JavaScript.
-                </p>
-                <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
-                  The kit comes with three pre-built pages to help you get
-                  started faster. You can change the text and images, and you're
-                  good to go. Just make sure you enable them first via
-                  JavaScript.
-                </p>
-                <Link href="/" legacyBehavior>
-                  <a href="#pablo" className="font-bold text-blueGray-700 mt-8">
-                    Check Notus NextJS!
-                  </a>
-                </Link>
               </div>
-
-              {/* Right Card Slider */}
-              <CustomAutoSlider />
             </div>
           </div>
         </section>
 
-        <section className="pt-20 pb-48">
+        {/* Destinations  */}
+        <section className="pt-5 pb-20">
           <div className="container mx-auto px-4">
+            <div className="flex flex-wrap justify-center text-center mb-12">
+              <div className="w-full lg:w-6/12 px-4">
+                <h2 className="text-4xl font-semibold">Our Top Destinations</h2>
+                <p className="text-lg leading-relaxed m-4 text-blueGray-500">
+                  Explore Top Study Destinations
+                </p>
+              </div>
+            </div>
             <div className="flex flex-wrap">
               <div className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  ">
                 <div className="px-6 py-6 border-2">
-                  <img
+                  <Image
                     alt="..."
-                    src="/img/team-1-800x800.jpg"
+                    src="/img/UK.jpeg"
                     className="shadow-lg   mx-auto max-w-120-px"
+                    width={100}
+                    height={100}
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Study in UK</h5>
@@ -302,10 +297,12 @@ export default function Landing() {
 
               <div className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  ">
                 <div className="px-6 py-6 border-2">
-                  <img
+                  <Image
                     alt="..."
-                    src="/img/team-1-800x800.jpg"
+                    src="/img/USA.jpeg"
                     className="shadow-lg   mx-auto max-w-120-px"
+                    width={100}
+                    height={100}
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Study in UK</h5>
@@ -378,7 +375,8 @@ export default function Landing() {
           </div>
         </section>
 
-        <section className="pt-20 pb-48 ">
+        {/* Statastics  */}
+        <section className="pt-10 pb-10 ">
           <div className={x.sectionStatics}>
             <div className={x.glassEffect}>
               <div className={x.circle}>
@@ -410,7 +408,42 @@ export default function Landing() {
           </div>
         </section>
 
-        <section className="relative py-20">
+        {/* Comments / Feedback  */}
+        <section className="pt-10 pb-48 ">
+          <div className="container mx-auto px-4">
+            {/* ///////////////////// SLIDER ///////////////////////////  */}
+            <div className="flex flex-wrap items-center mt-32">
+              {/* Left Text */}
+              <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
+                <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
+                  <i className="fas fa-user-friends text-xl"></i>
+                </div>
+                <h3 className="text-3xl mb-2 font-semibold leading-normal">
+                  What Our Students Say?
+                </h3>
+                <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
+                  Our students who successfully completed their procedure and went to abroad give recommandation in our social media and other platform.
+                </p>
+                {/* <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
+                  The kit comes with three pre-built pages to help you get
+                  started faster. You can change the text and images, and you're
+                  good to go. Just make sure you enable them first via
+                  JavaScript.
+                </p> */}
+                {/* <Link href="/" legacyBehavior>
+                  <a href="#pablo" className="font-bold text-blueGray-700 mt-8">
+                    Check Notus NextJS!
+                  </a>
+                </Link> */}
+              </div>
+
+              {/* Right Card Slider */}
+              <CustomAutoSlider />
+            </div>
+          </div>
+        </section>
+
+        {/* <section className="relative py-20">
           <div
             className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
             style={{ transform: "translateZ(0)" }}
@@ -499,8 +532,9 @@ export default function Landing() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
+        {/* Team members  */}
         <section className="pt-20 pb-48">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center text-center mb-24">
@@ -658,6 +692,7 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* Build Something  */}
         <section className="pb-20 relative block bg-blueGray-800">
           <div
             className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
@@ -732,6 +767,8 @@ export default function Landing() {
             </div>
           </div>
         </section>
+
+        {/* Contact form  */}
 
         <section className="relative block py-24 lg:pt-0 bg-blueGray-800">
           <div className="container mx-auto px-4">

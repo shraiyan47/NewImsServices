@@ -1,7 +1,49 @@
 .sectionStatics {
-  background: url('/img/ims service cover photo.jpg') no-repeat center center / cover;
-  padding: 50px 0;
+  background: url("/img/ims service cover photo.jpg") no-repeat center center /
+    cover;
+  /* padding: 50px 0; */
   position: relative;
+}
+
+.sectionFindDestination {
+  background: url("/img/ims service cover photo.jpg") no-repeat center center /
+    cover;
+  /* padding: 50px 0; */
+  position: relative;
+}
+
+.findDestinationBoxPosition {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  right: 26%;
+}
+
+.findDestinationBox {
+  backdrop-filter: blur(5px);
+  width: 25%;
+  height: 12rem;
+  background: rgba(58, 64, 154, 0.685);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  border-color: #180b64;
+  border-width: 1px;
+  transition: transform 0.5s, border-color 0.7s, box-shadow 0.2s, backdrop-filter 0.2s;
+}
+
+.findDestinationBox:hover {
+  backdrop-filter: blur(8px);
+  background: rgba(26, 30, 87, 0.685); 
+  transform: translateY(-5px);
+  border-color: rgb(4, 8, 48);
+  border-width: 2px;
+  box-shadow: 0 4px 8px rgba(8, 1, 26, 0.63);
 }
 
 .glassEffect {
@@ -32,7 +74,7 @@
 
 .textStatics {
   padding: 10px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: "Roboto Slab", Sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -45,12 +87,18 @@
   padding: 0;
 }
 
+.findDestinationText {
+  color: #ffffff;
+  font-family: "Roboto", Sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+}
+
 .textNumber {
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: "Roboto", Sans-serif;
   font-size: 48px;
   font-weight: 600;
-
 }
 
 .textContainer {

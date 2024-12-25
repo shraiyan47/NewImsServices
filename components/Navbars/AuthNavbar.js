@@ -28,7 +28,7 @@ export default function Navbar(props) {
                   src={"/img/logo.png"}
                   alt="IMS SERVICES"
                   height={100}
-                  width={200}
+                  width={100}
                 />
               </a>
             </Link>
