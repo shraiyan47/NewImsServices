@@ -30,6 +30,62 @@ const CustomAutoSlider = () => {
 
       bg: "#90ee90",
     },
+    {
+      id: 4,
+      image:
+        "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/19/16/graduates-inequality.jpg",
+      title: "Abul Kalam",
+      details:
+        "The IMS Service is a reliable, helpful and a really friendly consultancy firm according to me hence I believe they will produce the best service for your student application for higher study in UK because I have experienced there service which is in one word marvellous. And, Yeah you can trust them too I promise you won’t regret. Thanks to IMS Service Sylhet team.",
+      bg: "#ffcccb",
+    },
+    {
+      id: 5,
+      image: "https://ukstudycentre.co.uk/wp-content/uploads/2018/09/c1.jpg",
+      title: "Suruz mia",
+      details:
+        "The IMS Service is a reliable, helpful and a really friendly consultancy firm according to me hence I believe they will produce the best service for your student application for higher study in UK because I have experienced there service which is in one word marvellous. And, Yeah you can trust them too I promise you won’t regret. Thanks to IMS Service Sylhet team.",
+
+      bg: "#add8e6",
+    },
+    {
+      id: 6,
+      image:
+        "https://www.kenilworthglobalconsulting.com/wp-content/uploads/2022/05/Best-Universities-in-UK-1.jpeg",
+      title: "Joynal Hajari",
+      details:
+        "The IMS Service is a reliable, helpful and a really friendly consultancy firm according to me hence I believe they will produce the best service for your student application for higher study in UK because I have experienced there service which is in one word marvellous. And, Yeah you can trust them too I promise you won’t regret. Thanks to IMS Service Sylhet team.",
+
+      bg: "#90ee90",
+    },
+    {
+      id: 7,
+      image:
+        "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/19/16/graduates-inequality.jpg",
+      title: "Jibon Ali",
+      details:
+        "The IMS Service is a reliable, helpful and a really friendly consultancy firm according to me hence I believe they will produce the best service for your student application for higher study in UK because I have experienced there service which is in one word marvellous. And, Yeah you can trust them too I promise you won’t regret. Thanks to IMS Service Sylhet team.",
+      bg: "#ffcccb",
+    },
+    {
+      id: 8,
+      image: "https://ukstudycentre.co.uk/wp-content/uploads/2018/09/c1.jpg",
+      title: "Akteruzzaman",
+      details:
+        "The IMS Service is a reliable, helpful and a really friendly consultancy firm according to me hence I believe they will produce the best service for your student application for higher study in UK because I have experienced there service which is in one word marvellous. And, Yeah you can trust them too I promise you won’t regret. Thanks to IMS Service Sylhet team.",
+
+      bg: "#add8e6",
+    },
+    {
+      id: 9,
+      image:
+        "https://www.kenilworthglobalconsulting.com/wp-content/uploads/2022/05/Best-Universities-in-UK-1.jpeg",
+      title: "Salma Fariha",
+      details:
+        "The IMS Service is a reliable, helpful and a really friendly consultancy firm according to me hence I believe they will produce the best service for your student application for higher study in UK because I have experienced there service which is in one word marvellous. And, Yeah you can trust them too I promise you won’t regret. Thanks to IMS Service Sylhet team.",
+
+      bg: "#90ee90",
+    },
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -89,7 +145,7 @@ const CustomAutoSlider = () => {
               <h3 style={{
                 fontWeight:700,
                 fontSize:22,
-              }}>{slide.title}</h3>
+              }}>{slide.title} - {slide.id}</h3>
               <p>{slide.details}</p>
             </div>
           </div>

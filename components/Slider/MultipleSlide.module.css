@@ -1,0 +1,56 @@
+.sliderContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */ 
+    width: 70%;
+  }
+  
+  .slider::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Edge */
+  }
+  
+  .partnerCard {
+    flex: 0 0 25%; /* Each item takes 1/3rd of the container width */
+    scroll-snap-align: center;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .partnerCard img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .navButton {
+    background-color: transparent;
+    border: none;
+    font-size: 4rem;
+    cursor: pointer;
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .navButton:first-of-type {
+    left: 10px;
+  }
+  
+  .navButton:last-of-type {
+    right: 10px;
+  }
+  

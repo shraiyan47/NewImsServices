@@ -9,6 +9,7 @@ import Image from "next/image";
 import CustomAutoSlider from "components/Slider/Slider";
 
 import x from "./landing.module.css";
+import PartnerSlider from "components/Slider/MultipleSlide";
 
 export default function Landing() {
   const cards = [
@@ -240,7 +241,7 @@ export default function Landing() {
         </section>
 
         {/* Find You Destination */}
-        <section className="pt-10 pb-20 ">
+        <section className="pt-15 pb-20 mt-10">
           <div className={x.sectionFindDestination}>
             <div className={x.findDestinationBoxPosition}>
               <div className={x.findDestinationBox}>
@@ -276,6 +277,7 @@ export default function Landing() {
                     className="shadow-lg   mx-auto max-w-120-px"
                     width={100}
                     height={100}
+                    style={{ width: "8rem", height: "8rem" }}
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Study in UK</h5>
@@ -303,9 +305,10 @@ export default function Landing() {
                     className="shadow-lg   mx-auto max-w-120-px"
                     width={100}
                     height={100}
+                    style={{ width: "8rem", height: "8rem" }}
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Study in UK</h5>
+                    <h5 className="text-xl font-bold">Study in USA</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
                       United Kingdom
                     </p>
@@ -328,9 +331,10 @@ export default function Landing() {
                     alt="..."
                     src="/img/team-1-800x800.jpg"
                     className="shadow-lg   mx-auto max-w-120-px"
+                    style={{ width: "8rem", height: "8rem" }}
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Study in UK</h5>
+                    <h5 className="text-xl font-bold">Study in Australia</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
                       United Kingdom
                     </p>
@@ -353,6 +357,7 @@ export default function Landing() {
                     alt="..."
                     src="/img/team-1-800x800.jpg"
                     className="shadow-lg   mx-auto max-w-120-px"
+                    style={{ width: "8rem", height: "8rem" }}
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Study in UK</h5>
@@ -422,7 +427,9 @@ export default function Landing() {
                   What Our Students Say?
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  Our students who successfully completed their procedure and went to abroad give recommandation in our social media and other platform.
+                  Our students who successfully completed their procedure and
+                  went to abroad give recommandation in our social media and
+                  other platform.
                 </p>
                 {/* <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
                   The kit comes with three pre-built pages to help you get
@@ -440,6 +447,23 @@ export default function Landing() {
               {/* Right Card Slider */}
               <CustomAutoSlider />
             </div>
+          </div>
+        </section>
+
+        {/* Comments / Feedback  */}
+        <section className="pt-10 pb-48 ">
+          <div className="container mx-auto px-4">
+            {/* ///////////////////// SLIDER ///////////////////////////  */}
+            <div className="flex flex-wrap justify-center text-center mb-12">
+              <div className="w-full lg:w-6/12 px-4">
+                <h2 className="text-4xl font-semibold">Our Partners</h2>
+                
+              </div>
+            </div>
+
+            {/* Right Card Slider */}
+
+            <PartnerSlider />
           </div>
         </section>
 
