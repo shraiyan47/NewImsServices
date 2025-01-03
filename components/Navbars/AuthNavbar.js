@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 // components
 
 import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const [url, setUrl] = React.useState(null);
+
+  const router = useRouter();
+  // eslint-disable-next-line no-restricted-globals
+  useEffect(() => {    
+    setUrl(window.location.hostname)
+  }, [router])
+  
+
+  console.log(router, url);
   return (
     <>
       <nav
@@ -59,13 +70,15 @@ export default function Navbar(props) {
               </li>
             </ul> */}
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              <li className="flex items-center">
-                <PagesDropdown />
-              </li>
+              {url === "localhost" && (
+                <li className="flex items-center">
+                  <PagesDropdown />
+                </li>
+              )}
               <li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-nextjs%2F"
+                  href="https://www.facebook.com/IMSServicesBd/"
                   target="_blank"
                 >
                   <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-facebook text-lg leading-lg " />
@@ -76,33 +89,17 @@ export default function Navbar(props) {
               <li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-nextjs%2F&text=Start%20your%20development%20with%20a%20Free%20Tailwind%20CSS%20and%20NextJS%20UI%20Kit%20and%20Admin.%20Let%20Notus%20NextJS%20amaze%20you%20with%20its%20cool%20features%20and%20build%20tools%20and%20get%20your%20project%20to%20a%20whole%20new%20level."
+                  href="https://api.whatsapp.com/send?phone=%2B8801781913380&context=ARDOLsx_QJgX7Te26og4N-iTKssMNYKSfkkp1LbyzuJANw3KL7eZuF028WEeQEyYiSqrPJ6SUaA3TtPeuEWrUqfB1GkDi-XD7lXc_JuY0XVumBuhJQ51hLeib04yUjG6TfsxRsnf8FZbNoDySdqfG_pisA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR303CSeUmTHjUHDU3UL8bJc-zZUpLeaKXJdWPqG5Y2c3CCYYrS30HXbBKo_aem_9zt_wIdViXPoyUADGKmmdQ"
                   target="_blank"
                 >
-                  <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-twitter text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">Tweet</span>
+                  <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-whatsapp text-lg leading-lg " />
+                  <span className="lg:hidden inline-block ml-2">Whasapp</span>
                 </a>
               </li>
 
-              <li className="flex items-center">
-                <a
-                  className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://github.com/creativetimofficial/notus-nextjs?ref=nnjs-auth-navbar"
-                  target="_blank"
-                >
-                  <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-github text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">Star</span>
-                </a>
-              </li>
+               
 
-              <li className="flex items-center">
-                <button
-                  className="bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-                  type="button"
-                >
-                  <i className="fas fa-arrow-alt-circle-down"></i> Download
-                </button>
-              </li>
+               
             </ul>
           </div>
         </div>

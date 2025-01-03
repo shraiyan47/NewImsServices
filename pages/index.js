@@ -245,13 +245,18 @@ export default function Landing() {
           <div className={x.sectionFindDestination}>
             <div className={x.findDestinationBoxPosition}>
               <div className={x.findDestinationBox}>
+                <a href='https://api.whatsapp.com/send?phone=%2B8801781913380&context=ARDOLsx_QJgX7Te26og4N-iTKssMNYKSfkkp1LbyzuJANw3KL7eZuF028WEeQEyYiSqrPJ6SUaA3TtPeuEWrUqfB1GkDi-XD7lXc_JuY0XVumBuhJQ51hLeib04yUjG6TfsxRsnf8FZbNoDySdqfG_pisA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR303CSeUmTHjUHDU3UL8bJc-zZUpLeaKXJdWPqG5Y2c3CCYYrS30HXbBKo_aem_9zt_wIdViXPoyUADGKmmdQ' target="_blank">
+
                 <div className={x.textContainer}>
+                  <small style={{marginTop:'2rem'}} >[UNDER DEVELOPMENT, PLEASE CONTACT IN WHATSAPP]</small>
                   <p className={x.textStatics}>
-                    Browse top destinations from over 120 universities worldwide
+                    Browse top destinations from over 120 universities worldwide 
                   </p>
 
-                  <p className={x.findDestinationText}>Find your destination</p>
+
+                  <p className={x.findDestinationText}>Choose you Degree</p>
                 </div>
+                </a>
               </div>
             </div>
           </div>
@@ -286,7 +291,7 @@ export default function Landing() {
                     </p>
                     <div className="mt-6">
                       <button
-                        className=" bg-black text-white w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
+                        className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
                         type="button"
                       >
                         {/* <i className="fab fa-twitter"></i> */}
@@ -314,7 +319,7 @@ export default function Landing() {
                     </p>
                     <div className="mt-6">
                       <button
-                        className=" bg-black text-white w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
+                        className=" bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
                         type="button"
                       >
                         {/* <i className="fab fa-twitter"></i> */}
@@ -340,7 +345,7 @@ export default function Landing() {
                     </p>
                     <div className="mt-6">
                       <button
-                        className=" bg-black text-white w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
+                        className=" bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
                         type="button"
                       >
                         {/* <i className="fab fa-twitter"></i> */}
@@ -366,7 +371,7 @@ export default function Landing() {
                     </p>
                     <div className="mt-6">
                       <button
-                        className=" bg-black text-white w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
+                        className=" bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
                         type="button"
                       >
                         {/* <i className="fab fa-twitter"></i> */}
@@ -559,7 +564,7 @@ export default function Landing() {
         </section> */}
 
         {/* Team members  */}
-        <section className="pt-20 pb-48">
+        {/* <section className="pt-20 pb-48">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center text-center mb-24">
               <div className="w-full lg:w-6/12 px-4">
@@ -714,7 +719,7 @@ export default function Landing() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Build Something  */}
         <section className="pb-20 relative block bg-blueGray-800">

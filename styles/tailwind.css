@@ -1234,6 +1234,11 @@ select {
   background-color: rgba(236, 72, 153, var(--tw-bg-opacity));
 }
 
+.bg-royal-purple-500 {
+  --tw-bg-opacity: 1;
+  background-color: #592e8b;
+}
+
 .bg-purple-200 {
   --tw-bg-opacity: 1;
   background-color: rgba(233, 213, 255, var(--tw-bg-opacity));
