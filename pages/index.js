@@ -41,6 +41,47 @@ export default function Landing() {
 
   const destination = {};
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    feedback: "",
+  });
+  const [status, setStatus] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("Submitting...");
+    setSubmitted(true);
+    try {
+      const response = await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus("Feedback submitted successfully!");
+        setFormData({ name: "", email: "", feedback: "" }); // Reset form
+        setSubmitted(false);
+      } else {
+        const errorData = await response.json();
+        setStatus(`Error: ${errorData.error}`);
+        setSubmitted(false);
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      setStatus("Error submitting feedback.");
+      setSubmitted(false);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -245,17 +286,21 @@ export default function Landing() {
           <div className={x.sectionFindDestination}>
             <div className={x.findDestinationBoxPosition}>
               <div className={x.findDestinationBox}>
-                <a href='https://api.whatsapp.com/send?phone=%2B8801781913380&context=ARDOLsx_QJgX7Te26og4N-iTKssMNYKSfkkp1LbyzuJANw3KL7eZuF028WEeQEyYiSqrPJ6SUaA3TtPeuEWrUqfB1GkDi-XD7lXc_JuY0XVumBuhJQ51hLeib04yUjG6TfsxRsnf8FZbNoDySdqfG_pisA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR303CSeUmTHjUHDU3UL8bJc-zZUpLeaKXJdWPqG5Y2c3CCYYrS30HXbBKo_aem_9zt_wIdViXPoyUADGKmmdQ' target="_blank">
+                <a
+                  href="https://api.whatsapp.com/send?phone=%2B8801781913380&context=ARDOLsx_QJgX7Te26og4N-iTKssMNYKSfkkp1LbyzuJANw3KL7eZuF028WEeQEyYiSqrPJ6SUaA3TtPeuEWrUqfB1GkDi-XD7lXc_JuY0XVumBuhJQ51hLeib04yUjG6TfsxRsnf8FZbNoDySdqfG_pisA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR303CSeUmTHjUHDU3UL8bJc-zZUpLeaKXJdWPqG5Y2c3CCYYrS30HXbBKo_aem_9zt_wIdViXPoyUADGKmmdQ"
+                  target="_blank"
+                >
+                  <div className={x.textContainer}>
+                    <small style={{ marginTop: "2rem" }}>
+                      [UNDER DEVELOPMENT, PLEASE CONTACT IN WHATSAPP]
+                    </small>
+                    <p className={x.textStatics}>
+                      Browse top destinations from over 120 universities
+                      worldwide
+                    </p>
 
-                <div className={x.textContainer}>
-                  <small style={{marginTop:'2rem'}} >[UNDER DEVELOPMENT, PLEASE CONTACT IN WHATSAPP]</small>
-                  <p className={x.textStatics}>
-                    Browse top destinations from over 120 universities worldwide 
-                  </p>
-
-
-                  <p className={x.findDestinationText}>Choose you Degree</p>
-                </div>
+                    <p className={x.findDestinationText}>Choose you Degree</p>
+                  </div>
                 </a>
               </div>
             </div>
@@ -462,7 +507,6 @@ export default function Landing() {
             <div className="flex flex-wrap justify-center text-center mb-12">
               <div className="w-full lg:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold">Our Partners</h2>
-                
               </div>
             </div>
 
@@ -724,8 +768,8 @@ export default function Landing() {
         {/* Build Something  */}
         <section className="pb-20 relative block bg-blueGray-800">
           <div
-            className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
-            style={{ transform: "translateZ(0)" }}
+            className="bottom-auto left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
+            style={{ transform: "translateZ(0)", top:'1px' }}
           >
             <svg
               className="absolute bottom-0 overflow-hidden"
@@ -747,51 +791,52 @@ export default function Landing() {
             <div className="flex flex-wrap text-center justify-center">
               <div className="w-full lg:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold text-white">
-                  Build something
+                  Contact Us
                 </h2>
-                <p className="text-lg leading-relaxed mt-4 mb-4 text-blueGray-400">
+                {/* <p className="text-lg leading-relaxed mt-4 mb-4 text-blueGray-400">
                   Put the potentially record low maximum sea ice extent tihs
                   year down to low ice. According to the National Oceanic and
                   Atmospheric Administration, Ted, Scambos.
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="flex flex-wrap mt-12 justify-center">
               <div className="w-full lg:w-3/12 px-4 text-center">
                 <div className="text-blueGray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
-                  <i className="fas fa-medal text-xl"></i>
+                  <i className="fas fa-location text-xl"></i>
                 </div>
                 <h6 className="text-xl mt-5 font-semibold text-white">
-                  Excelent Services
+                  Our Location
                 </h6>
                 <p className="mt-2 mb-4 text-blueGray-400">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
+                  House No. 38, Road No. 2, Aram Properties, Bosila, Mohammadpur
+                  1209 Dhaka, Dhaka Division, Bangladesh
                 </p>
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
                 <div className="text-blueGray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
-                  <i className="fas fa-poll text-xl"></i>
+                  <i className="fas fa-phone text-xl"></i>
                 </div>
                 <h5 className="text-xl mt-5 font-semibold text-white">
-                  Grow your market
+                  Call Us On
                 </h5>
-                <p className="mt-2 mb-4 text-blueGray-400">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
+                <a className="mt-2 mb-4 text-blueGray-400" href='tel:+8801781913380'>
+                  +8801781913380
+                </a>
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
                 <div className="text-blueGray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
                   <i className="fas fa-lightbulb text-xl"></i>
                 </div>
                 <h5 className="text-xl mt-5 font-semibold text-white">
-                  Launch time
+                Email Us
                 </h5>
-                <p className="mt-2 mb-4 text-blueGray-400">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
+                <a className="mt-2 mb-4 text-blueGray-400" href="mailto:info@imsservicesbd.com">
+                  info@imsservicesbd.com
+                </a>
+                {/* <p className="mt-2 mb-4 text-blueGray-400">
+                  info@imsservicesbd.com
+                </p> */}
               </div>
             </div>
           </div>
@@ -805,63 +850,81 @@ export default function Landing() {
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
                   <div className="flex-auto p-5 lg:p-10">
-                    <h4 className="text-2xl font-semibold">
-                      Want to work with us?
-                    </h4>
-                    <p className="leading-relaxed mt-1 mb-4 text-blueGray-500">
-                      Complete this form and we will get back to you in 24
-                      hours.
-                    </p>
-                    <div className="relative w-full mb-3 mt-8">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="full-name"
-                      >
-                        Full Name
-                      </label>
-                      <input
-                        type="text"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Full Name"
-                      />
-                    </div>
+                    <form onSubmit={handleSubmit}>
+                      <h4 className="text-2xl font-semibold">
+                        Leave us a message
+                      </h4>
+                      <p className="leading-relaxed mt-1 mb-4 text-blueGray-500">
+                        Keep in touch with us. Leave us a message. You can keep your mobile number in message too.
+                      </p>
+                      <div className="relative w-full mb-3 mt-8">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="full-name"
+                        >
+                          Full Name
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          placeholder="Full Name"
+                        />
+                      </div>
 
-                    <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="email"
-                      >
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Email"
-                      />
-                    </div>
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="email"
+                        >
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          placeholder="Email"
+                        />
+                      </div>
 
-                    <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="message"
-                      >
-                        Message
-                      </label>
-                      <textarea
-                        rows="4"
-                        cols="80"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Type a message..."
-                      />
-                    </div>
-                    <div className="text-center mt-6">
-                      <button
-                        className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                      >
-                        Send Message
-                      </button>
-                    </div>
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="message"
+                        >
+                          Message
+                        </label>
+                        <textarea
+                          rows="4"
+                          cols="80"
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          placeholder="Type a message..."
+                          name="feedback"
+                          value={formData.feedback}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+                      <div className="text-center mt-6">
+                        {submitted ? (
+                          <button>Submitted</button>
+                        ) : (
+                          <button
+                            className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="submit"
+                          >
+                            Send Message
+                          </button>
+                        )}
+                      </div>
+                    </form>
+                    <p>{status}</p>
                   </div>
                 </div>
               </div>

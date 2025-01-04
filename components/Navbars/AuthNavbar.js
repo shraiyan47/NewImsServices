@@ -17,7 +17,7 @@ export default function Navbar(props) {
   }, [router])
   
 
-  console.log(router, url);
+  // console.log(router, url);
   return (
     <>
       <nav
