@@ -765,7 +765,7 @@ export default function Landing() {
           </div>
         </section> */}
 
-        {/* Build Something  */}
+        {/* Contact Us  */}
         <section className="pb-20 relative block bg-blueGray-800">
           <div
             className="bottom-auto left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
@@ -845,7 +845,7 @@ export default function Landing() {
         {/* Contact form  */}
 
         <section className="relative block py-24 lg:pt-0 bg-blueGray-800">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4" >
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">

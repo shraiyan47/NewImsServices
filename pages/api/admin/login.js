@@ -15,7 +15,7 @@ export default function handler(req, res) {
 
     // Check admin credentials
     if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-      const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '8h' });
       return res.status(200).json({ message: 'Login successful', token });
     }
 
