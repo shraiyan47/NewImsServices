@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
- 
+import PageChange from "components/PageChange/PageChange";
 
 export default function FeedbackTable({ color }) {
   const [dataFeedback, setDataFeedback] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const token = localStorage.getItem("token");
     const myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + token);
@@ -21,6 +23,7 @@ export default function FeedbackTable({ color }) {
       .then((result) => {
         setDataFeedback(result);
         console.log(result);
+        setLoading(false);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -33,11 +36,12 @@ export default function FeedbackTable({ color }) {
       feedback: "Hello Dear, \nI'm not near!",
       createdAt: "2025-01-05T07:18:30.630Z",
       __v: 0,
-    }
+    },
   ];
 
   return (
     <>
+      {loading && <PageChange path={'Feedback'} />}
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
@@ -54,7 +58,7 @@ export default function FeedbackTable({ color }) {
                 }
               >
                 Feedbacks
-              </h3> 
+              </h3>
             </div>
           </div>
         </div>
@@ -93,14 +97,12 @@ export default function FeedbackTable({ color }) {
                 >
                   Feedback
                 </th>
-                 
               </tr>
             </thead>
             <tbody>
-              {dataFeedback.map((x, i) => 
+              {dataFeedback.map((x, i) => (
                 <tr key={i}>
                   <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                     
                     <span
                       className={
                         "ml-3 font-bold " +
@@ -115,16 +117,24 @@ export default function FeedbackTable({ color }) {
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {x.email}
                   </td>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4" style={{maxWidth: "300px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}} title={x.feedback}>
-                     
+                  <td
+                    className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                    style={{
+                      maxWidth: "300px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                    title={x.feedback}
+                  >
                     {x.feedback}
                   </td>
-                   
+
                   {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                     <TableDropdown />
                   </td> */}
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </div>
