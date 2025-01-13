@@ -8,38 +8,12 @@ import Footer from "components/Footers/Footer.js";
 import Image from "next/image";
 import CustomAutoSlider from "components/Slider/Slider";
 
-import x from "./landing.module.css";
+import landingCSS from "./landing.module.css";
 import PartnerSlider from "components/Slider/MultipleSlide";
 
 export default function Landing() {
-  const cards = [
-    {
-      img: "/img/angular.jpg",
-      title: "Top Notch Services",
-      description:
-        "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever happens.",
-    },
-    {
-      img: "/img/bootstrap.jpg",
-      title: "Outstanding Support",
-      description:
-        "Experience unparalleled support for your business needs. Our team is dedicated to providing top-notch service tailored to your goals.",
-    },
-    {
-      img: "/img/login.jpg",
-      title: "Innovative Solutions",
-      description:
-        "We deliver innovative solutions to complex challenges, ensuring your business remains ahead of the curve in a competitive landscape.",
-    },
-  ];
-
-  const sampleImage = [
-    "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/19/16/graduates-inequality.jpg",
-    "https://ukstudycentre.co.uk/wp-content/uploads/2018/09/c1.jpg",
-    "https://www.kenilworthglobalconsulting.com/wp-content/uploads/2022/05/Best-Universities-in-UK-1.jpeg",
-  ];
-
-  const destination = {};
+  const [destination, setDestination] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -80,6 +54,43 @@ export default function Landing() {
       setStatus("Error submitting feedback.");
       setSubmitted(false);
     }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    const myHeaders = new Headers();
+    myHeaders.append(
+      "Authorization",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzM2Nzg2ODAwLCJleHAiOjE3MzY4MTU2MDB9.MeYxJl79exOOvhakMStqRutlkqaawPm6iXgRhD-LbPk"
+    );
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    try {
+      fetch("/api/admin/destination", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          // console.log(result)
+          setDestination(result);
+          setLoading(false);
+        })
+        .catch((error) => console.error(error));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+
+    // fetch("/api/admin/destination", requestOptions)
+  }, []);
+
+  // Function to convert buffer data to base64
+  const bufferToBase64 = (bufferData, contentType) => {
+    return `data:${contentType};base64,${Buffer.from(bufferData).toString(
+      "base64"
+    )}`;
   };
 
   return (
@@ -283,23 +294,25 @@ export default function Landing() {
 
         {/* Find You Destination */}
         <section className="pt-15 pb-20 mt-10">
-          <div className={x.sectionFindDestination}>
-            <div className={x.findDestinationBoxPosition}>
-              <div className={x.findDestinationBox}>
+          <div className={landingCSS.sectionFindDestination}>
+            <div className={landingCSS.findDestinationBoxPosition}>
+              <div className={landingCSS.findDestinationBox}>
                 <a
                   href="https://api.whatsapp.com/send?phone=%2B8801781913380&context=ARDOLsx_QJgX7Te26og4N-iTKssMNYKSfkkp1LbyzuJANw3KL7eZuF028WEeQEyYiSqrPJ6SUaA3TtPeuEWrUqfB1GkDi-XD7lXc_JuY0XVumBuhJQ51hLeib04yUjG6TfsxRsnf8FZbNoDySdqfG_pisA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR303CSeUmTHjUHDU3UL8bJc-zZUpLeaKXJdWPqG5Y2c3CCYYrS30HXbBKo_aem_9zt_wIdViXPoyUADGKmmdQ"
                   target="_blank"
                 >
-                  <div className={x.textContainer}>
+                  <div className={landingCSS.textContainer}>
                     <small style={{ marginTop: "2rem" }}>
                       [UNDER DEVELOPMENT, PLEASE CONTACT IN WHATSAPP]
                     </small>
-                    <p className={x.textStatics}>
+                    <p className={landingCSS.textStatics}>
                       Browse top destinations from over 120 universities
                       worldwide
                     </p>
 
-                    <p className={x.findDestinationText}>Choose you Degree</p>
+                    <p className={landingCSS.findDestinationText}>
+                      Choose you Degree
+                    </p>
                   </div>
                 </a>
               </div>
@@ -319,144 +332,73 @@ export default function Landing() {
               </div>
             </div>
             <div className="flex flex-wrap">
-              <div className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  ">
-                <div className="px-6 py-6 border-2">
-                  <Image
-                    alt="..."
-                    src="/img/UK.jpeg"
-                    className="shadow-lg   mx-auto max-w-120-px"
-                    width={100}
-                    height={100}
-                    style={{ width: "8rem", height: "8rem" }}
-                  />
-                  <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Study in UK</h5>
-                    <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      United Kingdom
-                    </p>
-                    <div className="mt-6">
-                      <button
-                        className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
-                        type="button"
-                      >
-                        {/* <i className="fab fa-twitter"></i> */}
-                        Learn More
-                      </button>
+              {destination.map((dest) => (
+                <div
+                  key={dest._id}
+                  className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  "
+                >
+                  <div className="px-6 py-6 border-2">
+                    <Image
+                      alt="..."
+                      src={bufferToBase64(
+                        dest.thumbnail.data,
+                        dest.thumbnail.contentType
+                      )}
+                      className="shadow-lg   mx-auto max-w-120-px"
+                      width={100}
+                      height={100}
+                      style={{ width: "8rem", height: "8rem" }}
+                    />
+                    <div className="pt-6 text-center">
+                      <h5 className="text-xl font-bold">{dest.title}</h5>
+                      <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
+                        {dest.countryName}
+                      </p>
+                      <div className="mt-6">
+                        <Link
+                          href={`/destination/${dest._id}`}
+                          className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
+                          type="button"
+                        >
+                          {/* <i className="fab fa-twitter"></i> */}
+                          Learn More
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  ">
-                <div className="px-6 py-6 border-2">
-                  <Image
-                    alt="..."
-                    src="/img/USA.jpeg"
-                    className="shadow-lg   mx-auto max-w-120-px"
-                    width={100}
-                    height={100}
-                    style={{ width: "8rem", height: "8rem" }}
-                  />
-                  <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Study in USA</h5>
-                    <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      United Kingdom
-                    </p>
-                    <div className="mt-6">
-                      <button
-                        className=" bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
-                        type="button"
-                      >
-                        {/* <i className="fab fa-twitter"></i> */}
-                        Learn More
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  ">
-                <div className="px-6 py-6 border-2">
-                  <img
-                    alt="..."
-                    src="/img/team-1-800x800.jpg"
-                    className="shadow-lg   mx-auto max-w-120-px"
-                    style={{ width: "8rem", height: "8rem" }}
-                  />
-                  <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Study in Australia</h5>
-                    <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      United Kingdom
-                    </p>
-                    <div className="mt-6">
-                      <button
-                        className=" bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
-                        type="button"
-                      >
-                        {/* <i className="fab fa-twitter"></i> */}
-                        Learn More
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  ">
-                <div className="px-6 py-6 border-2">
-                  <img
-                    alt="..."
-                    src="/img/team-1-800x800.jpg"
-                    className="shadow-lg   mx-auto max-w-120-px"
-                    style={{ width: "8rem", height: "8rem" }}
-                  />
-                  <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Study in UK</h5>
-                    <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      United Kingdom
-                    </p>
-                    <div className="mt-6">
-                      <button
-                        className=" bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold  rounded-lg"
-                        type="button"
-                      >
-                        {/* <i className="fab fa-twitter"></i> */}
-                        Learn More
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Statastics  */}
         <section className="pt-10 pb-10 ">
-          <div className={x.sectionStatics}>
-            <div className={x.glassEffect}>
-              <div className={x.circle}>
-                <div className={x.textContainer}>
-                  <p className={x.textStatics}>Universities</p>
-                  <p className={x.textNumber}>20+</p>
+          <div className={landingCSS.sectionStatics}>
+            <div className={landingCSS.glassEffect}>
+              <div className={landingCSS.circle}>
+                <div className={landingCSS.textContainer}>
+                  <p className={landingCSS.textStatics}>Universities</p>
+                  <p className={landingCSS.textNumber}>20+</p>
                 </div>
               </div>
-              <div className={x.circle}>
-                <div className={x.textContainer}>
-                  <p className={x.textStatics}>Global Offices</p>
-                  <p className={x.textNumber}>5+</p>
+              <div className={landingCSS.circle}>
+                <div className={landingCSS.textContainer}>
+                  <p className={landingCSS.textStatics}>Global Offices</p>
+                  <p className={landingCSS.textNumber}>5+</p>
                 </div>
               </div>
-              <div className={x.circle}>
-                <div className={x.textContainer}>
-                  <p className={x.textStatics}>UK EDU EXPO</p>
-                  <p className={x.textNumber}>120+</p>
+              <div className={landingCSS.circle}>
+                <div className={landingCSS.textContainer}>
+                  <p className={landingCSS.textStatics}>UK EDU EXPO</p>
+                  <p className={landingCSS.textNumber}>120+</p>
                 </div>
               </div>
 
-              <div className={x.circle}>
-                <div className={x.textContainer}>
-                  <p className={x.textStatics}>Free Service</p>
-                  <p className={x.textNumber}>100%</p>
+              <div className={landingCSS.circle}>
+                <div className={landingCSS.textContainer}>
+                  <p className={landingCSS.textStatics}>Free Service</p>
+                  <p className={landingCSS.textNumber}>100%</p>
                 </div>
               </div>
             </div>
@@ -769,7 +711,7 @@ export default function Landing() {
         <section className="pb-20 relative block bg-blueGray-800">
           <div
             className="bottom-auto left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
-            style={{ transform: "translateZ(0)", top:'1px' }}
+            style={{ transform: "translateZ(0)", top: "1px" }}
           >
             <svg
               className="absolute bottom-0 overflow-hidden"
@@ -820,7 +762,10 @@ export default function Landing() {
                 <h5 className="text-xl mt-5 font-semibold text-white">
                   Call Us On
                 </h5>
-                <a className="mt-2 mb-4 text-blueGray-400" href='tel:+8801781913380'>
+                <a
+                  className="mt-2 mb-4 text-blueGray-400"
+                  href="tel:+8801781913380"
+                >
                   +8801781913380
                 </a>
               </div>
@@ -829,9 +774,12 @@ export default function Landing() {
                   <i className="fas fa-lightbulb text-xl"></i>
                 </div>
                 <h5 className="text-xl mt-5 font-semibold text-white">
-                Email Us
+                  Email Us
                 </h5>
-                <a className="mt-2 mb-4 text-blueGray-400" href="mailto:info@imsservicesbd.com">
+                <a
+                  className="mt-2 mb-4 text-blueGray-400"
+                  href="mailto:info@imsservicesbd.com"
+                >
                   info@imsservicesbd.com
                 </a>
                 {/* <p className="mt-2 mb-4 text-blueGray-400">
@@ -845,7 +793,7 @@ export default function Landing() {
         {/* Contact form  */}
 
         <section className="relative block py-24 lg:pt-0 bg-blueGray-800">
-          <div className="container mx-auto px-4" >
+          <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
@@ -855,7 +803,8 @@ export default function Landing() {
                         Leave us a message
                       </h4>
                       <p className="leading-relaxed mt-1 mb-4 text-blueGray-500">
-                        Keep in touch with us. Leave us a message. You can keep your mobile number in message too.
+                        Keep in touch with us. Leave us a message. You can keep
+                        your mobile number in message too.
                       </p>
                       <div className="relative w-full mb-3 mt-8">
                         <label

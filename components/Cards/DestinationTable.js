@@ -7,7 +7,7 @@ export default function DestinationTable({ color }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     const token = localStorage.getItem("token");
     const myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + token);
@@ -23,7 +23,7 @@ export default function DestinationTable({ color }) {
       .then((result) => {
         setDataDescription(result);
         console.log(result);
-        setLoading(false)
+        setLoading(false);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -37,9 +37,13 @@ export default function DestinationTable({ color }) {
     )}`;
   };
 
+  const editHandler = (id) => {
+    window.location.href = `/admin/destination/edit/${id}`;
+  }
+
   return (
     <>
-    {loading && <PageChange path={'Destination'} />}
+      {loading && <PageChange path={"Destination"} />}
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
@@ -137,11 +141,26 @@ export default function DestinationTable({ color }) {
                 >
                   Description
                 </th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+                  }
+                >
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
               {dataDescription.map((x, i) => (
-                <tr key={i} style={{backgroundColor: (i%2===0)?'#9696965c':'#e1e1e15c'}}>
+                <tr
+                  key={i}
+                  style={{
+                    backgroundColor: i % 2 === 0 ? "#9696965c" : "#e1e1e15c",
+                  }}
+                >
                   <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                     <span
                       className={
@@ -151,7 +170,8 @@ export default function DestinationTable({ color }) {
                           : "text-white")
                       }
                     >
-                      {x.title}{i}
+                      {x.title}
+                      {i}
                     </span>
                   </th>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -230,6 +250,28 @@ export default function DestinationTable({ color }) {
                     title={x.destination}
                   >
                     {x.destination}
+                  </td>
+                  <td
+                    className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                    style={{
+                      maxWidth: "300px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    <button
+                    onClick={() => {
+                      editHandler(x._id);
+                    }}
+                    className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                      Edit
+                    </button>
+                    <button
+                    onClick={() => {}}
+                    className="bg-red-600 active:bg-red-500 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                      Delete
+                    </button>
                   </td>
 
                   {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
