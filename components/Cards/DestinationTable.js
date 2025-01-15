@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import PageChange from "components/PageChange/PageChange";
+import { useRouter } from "next/router";
+import Modal from "components/Modal/Modal";
+import UploadDestination from "components/Forms/destinationForm";
 
 export default function DestinationTable({ color }) {
   const [dataDescription, setDataDescription] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSelected, setIsSelected] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
@@ -32,14 +38,46 @@ export default function DestinationTable({ color }) {
 
   // Function to convert buffer data to base64
   const bufferToBase64 = (bufferData, contentType) => {
-    return `data:${contentType};base64,${Buffer.from(bufferData).toString(
-      "base64"
-    )}`;
+    console.log(bufferData, contentType);
+    if (bufferData && contentType) {
+      return `data:${contentType};base64,${Buffer.from(bufferData).toString(
+        "base64"
+      )}`;
+    } else {
+      return null;
+    }
   };
 
-  const editHandler = (id) => {
-    window.location.href = `/admin/destination/edit/${id}`;
-  }
+  const editHandler = (data) => {
+    // window.location.href = `/admin/destination/edit/${id}`;
+    // router.push(`/admin/destination/edit/?${id}`);
+    setIsSelected(data);
+    setIsModalOpen(true);
+  };
+
+  const deleteHandler = (id) => {
+    const token = localStorage.getItem("token");
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + token);
+    myHeaders.append("Content-Type", "application/json");
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm("Are you sure you want to delete this destination?")) {
+      fetch("/api/admin/destination/?id=" + id, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          router.reload();
+        })
+        .catch((error) => console.error("error", error));
+    }
+  };
 
   return (
     <>
@@ -171,7 +209,7 @@ export default function DestinationTable({ color }) {
                       }
                     >
                       {x.title}
-                      {i}
+                      {/* {i} */}
                     </span>
                   </th>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -188,8 +226,8 @@ export default function DestinationTable({ color }) {
                     onMouseEnter={() =>
                       setPreview(
                         bufferToBase64(
-                          x.thumbnail.data.data,
-                          x.thumbnail.contentType
+                          x?.thumbnail?.data?.data,
+                          x?.thumbnail?.contentType
                         )
                       )
                     }
@@ -197,8 +235,8 @@ export default function DestinationTable({ color }) {
                   >
                     <img
                       src={bufferToBase64(
-                        x.thumbnail.data.data,
-                        x.thumbnail.contentType
+                        x?.thumbnail?.data?.data,
+                        x?.thumbnail?.contentType
                       )}
                       alt="Thumbnail"
                       style={{
@@ -218,8 +256,8 @@ export default function DestinationTable({ color }) {
                     onMouseEnter={() =>
                       setPreview(
                         bufferToBase64(
-                          x.coverPhoto.data.data,
-                          x.coverPhoto.contentType
+                          x?.coverPhoto?.data?.data,
+                          x?.coverPhoto?.contentType
                         )
                       )
                     }
@@ -227,8 +265,8 @@ export default function DestinationTable({ color }) {
                   >
                     <img
                       src={bufferToBase64(
-                        x.coverPhoto.data.data,
-                        x.coverPhoto.contentType
+                        x?.coverPhoto?.data?.data,
+                        x?.coverPhoto?.contentType
                       )}
                       alt="Cover Photo"
                       style={{
@@ -261,15 +299,19 @@ export default function DestinationTable({ color }) {
                     }}
                   >
                     <button
-                    onClick={() => {
-                      editHandler(x._id);
-                    }}
-                    className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                      onClick={() => {
+                        editHandler(x);
+                      }}
+                      className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    >
                       Edit
                     </button>
                     <button
-                    onClick={() => {}}
-                    className="bg-red-600 active:bg-red-500 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                      onClick={() => {
+                        deleteHandler(x._id);
+                      }}
+                      className="bg-red-600 active:bg-red-500 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    >
                       Delete
                     </button>
                   </td>
@@ -283,6 +325,18 @@ export default function DestinationTable({ color }) {
           </table>
         </div>
       </div>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <h2 className="text-xl font-semibold mb-4">Edit Destination</h2>
+        <p className="text-gray-700 mb-6">
+          <UploadDestination data={isSelected} edit={true} />
+        </p>
+        <button
+          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          onClick={() => setIsModalOpen(false)}
+        >
+          Close
+        </button>
+      </Modal>
     </>
   );
 }

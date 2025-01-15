@@ -1,13 +1,64 @@
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import "react-quill/dist/quill.snow.css"; // Import the Quill CSS for styling
+// Dynamically import ReactQuill with SSR disabled
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-export default function UploadDestination() {
+export default function UploadDestination({ data = null, edit = false }) {
+
+
   const [formData, setFormData] = useState({
-    title: "",
-    countryName: "",
-    destination: "",
+    title: (edit && data.title) || "",
+    countryName: (edit && data.countryName) || "",
+    destination: (edit && data.destination) || "",
   });
-  const [thumbnail, setThumbnail] = useState(null);
-  const [coverPhoto, setCoverPhoto] = useState(null);
+
+  const [content, setContent] = useState((edit && data.destination) || `
+    <h1>This is a heading</h1>
+    <p><strong>Bold text</strong> and <em>italic text</em>.</p>
+    <ul>
+      <li>First item</li>
+      <li>Second item</li>
+      <li>Third item</li>
+    </ul>
+  `);
+
+  const handleContentChange = (value) => {
+    setContent(value);
+    setFormData({
+      ...formData,
+      destination: value,
+    });
+  };
+
+
+  const router = useRouter();
+  const id = (edit && data._id) || null;
+
+  const bufferToBase64 = (bufferData, contentType) => {
+    return `data:${contentType};base64,${Buffer.from(bufferData).toString(
+      "base64"
+    )}`;
+  };
+
+  const [thumbnail, setThumbnail] = useState(
+    (edit &&
+      bufferToBase64(
+        data?.thumbnail?.data?.data,
+        data?.thumbnail?.contentType
+      )) ||
+      ""
+  );
+  const [coverPhoto, setCoverPhoto] = useState(
+    (edit &&
+      bufferToBase64(
+        data?.coverPhoto?.data?.data,
+        data?.coverPhoto?.contentType
+      )) ||
+      ""
+  );
 
   const handleInputChange = (e) => {
     setFormData({
@@ -18,6 +69,7 @@ export default function UploadDestination() {
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
+    console.log(files, name);
     if (name === "thumbnail") setThumbnail(files[0]);
     if (name === "coverPhoto") setCoverPhoto(files[0]);
   };
@@ -25,7 +77,7 @@ export default function UploadDestination() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token =  localStorage.getItem("token"); // Replace with actual token
+    const token = localStorage.getItem("token"); // Replace with actual token
 
     const data = new FormData();
     data.append("title", formData.title);
@@ -34,16 +86,20 @@ export default function UploadDestination() {
     if (thumbnail) data.append("thumbnail", thumbnail);
     if (coverPhoto) data.append("coverPhoto", coverPhoto);
 
-    const response = await fetch("/api/admin/destination", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: data,
-    });
+    const response = await fetch(
+      (edit && "/api/admin/destination/?id=" + id) || "/api/admin/destination",
+      {
+        method: (edit && "PUT") || "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }
+    );
 
     const result = await response.json();
     console.log(result);
+    router.reload();
   };
 
   return (
@@ -60,7 +116,7 @@ export default function UploadDestination() {
           type="text"
           name="title"
           placeholder="Title"
-          value={formData.title}
+          value={formData?.title}
           onChange={handleInputChange}
         />
       </div>
@@ -76,11 +132,11 @@ export default function UploadDestination() {
           type="text"
           name="countryName"
           placeholder="Country Name"
-          value={formData.countryName}
+          value={formData?.countryName}
           onChange={handleInputChange}
         />{" "}
       </div>
-      <div className="relative w-full mb-3">
+      {/* <div className="relative w-full mb-3">
         <label
           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
           htmlFor="grid-password"
@@ -92,9 +148,44 @@ export default function UploadDestination() {
           type="text"
           name="destination"
           placeholder="Destination"
-          value={formData.destination}
+          value={formData?.destination}
           onChange={handleInputChange}
         />
+      </div> */}
+      <div className="p-4">
+        <h2 className="text-lg font-semibold mb-4">Details about Destination</h2>
+        <ReactQuill
+          value={content}
+          onChange={handleContentChange}
+          name="destination"
+          modules={{
+            toolbar: [
+              [{ header: [1, 2, 3, false] }],
+              ["bold", "italic", "underline", "strike"],
+              [{ list: "ordered" }, { list: "bullet" }],
+              ["link", "image"],
+            ],
+          }}
+          formats={[
+            "header",
+            "bold",
+            "italic",
+            "underline",
+            "strike",
+            "list",
+            "bullet",
+            "link",
+            "image",
+          ]}
+          className="bg-white rounded-lg shadow-lg"
+        />
+        <div className="mt-4">
+          <h3 className="font-semibold">Preview:</h3>
+          <div
+            className="p-4 border rounded bg-gray-100"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+        </div>
       </div>
       <div className="relative w-full mb-3">
         <label
@@ -104,6 +195,14 @@ export default function UploadDestination() {
           Thumbnail
         </label>
         <input type="file" name="thumbnail" onChange={handleFileChange} />
+        {thumbnail !== "" && (
+          <Image
+            src={edit ? thumbnail : URL.createObjectURL(thumbnail)}
+            alt="thumbnail"
+            width={100}
+            height={100}
+          />
+        )}
       </div>
       <div className="relative w-full mb-3">
         <label
@@ -112,13 +211,26 @@ export default function UploadDestination() {
         >
           Cover Photo
         </label>
-        <input type="file" name="coverPhoto" onChange={handleFileChange} />
+        <input
+          type="file"
+          name="coverPhoto"
+          onChange={handleFileChange}
+          multiple
+        />
+        {coverPhoto !== "" && (
+          <Image
+            src={edit ? coverPhoto : URL.createObjectURL(coverPhoto)}
+            alt="coverPhoto"
+            width={100}
+            height={100}
+          />
+        )}
       </div>
       <button
         className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
         type="submit"
       >
-        Create
+        {(edit && "Update") || "Create"}
       </button>
     </form>
   );
