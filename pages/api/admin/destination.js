@@ -1,18 +1,10 @@
-import jwt from 'jsonwebtoken';
-import multer from 'multer';
-import Destination from '../../../models/Destination';
-import mongoose from 'mongoose';
-import { promisify } from 'util';
-
-// Connect to MongoDB
-const connectToDatabase = async () => {
-  if (mongoose.connection.readyState === 0) {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-  }
-};
+import jwt from "jsonwebtoken";
+import multer from "multer";
+import Destination from "../../../models/Destination";
+import mongoose from "mongoose";
+import { promisify } from "util";
+import { verifyToken } from "../verifytoken";
+import { connectToDatabase } from "../connectDB";
 
 // Multer setup for file uploads
 const upload = multer({
@@ -23,36 +15,22 @@ const upload = multer({
 // Promisify the multer middleware for use in async functions
 const uploadMiddleware = promisify(
   upload.fields([
-    { name: 'thumbnail', maxCount: 1 },
-    { name: 'coverPhoto', maxCount: 1 },
+    { name: "thumbnail", maxCount: 1 },
+    { name: "coverPhoto", maxCount: 1 },
   ])
 );
-
-// Middleware to verify admin token
-const verifyToken = (req) => {
-  const { authorization } = req.headers;
-
-  if (!authorization) {
-    throw new Error('Authorization header missing');
-  }
-
-  const token = authorization.split(' ')[1];
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.admin = decoded; // Add admin info to the request
-  } catch (error) {
-    throw new Error('Invalid or expired token');
-  }
-};
 
 export default async function handler(req, res) {
   await connectToDatabase();
 
   try {
     switch (req.method) {
-      case 'POST': {
+      case "POST": {
         // Verify token
-        verifyToken(req);
+         // Token verification middleware
+        await new Promise((resolve, reject) => {
+          verifyToken(req, res, (err) => (err ? reject(err) : resolve()));
+        });
 
         // Parse file uploads
         await uploadMiddleware(req, res);
@@ -79,16 +57,18 @@ export default async function handler(req, res) {
         });
 
         await newDestination.save();
-        return res.status(201).json({ message: 'Destination created successfully!' });
+        return res
+          .status(201)
+          .json({ message: "Destination created successfully!" });
       }
 
-      case 'GET': {
+      case "GET": {
         const { id } = req.query;
         if (id) {
           // Get a specific destination
           const destination = await Destination.findById(id);
           if (!destination) {
-            return res.status(404).json({ error: 'Destination not found' });
+            return res.status(404).json({ error: "Destination not found" });
           }
           return res.status(200).json(destination);
         } else {
@@ -98,13 +78,16 @@ export default async function handler(req, res) {
         }
       }
 
-      case 'PUT': {
+      case "PUT": {
         // Verify token
-        verifyToken(req);
+         // Token verification middleware
+        await new Promise((resolve, reject) => {
+          verifyToken(req, res, (err) => (err ? reject(err) : resolve()));
+        });
 
         const { id } = req.query;
         if (!id) {
-          return res.status(400).json({ error: 'Destination ID is required' });
+          return res.status(400).json({ error: "Destination ID is required" });
         }
 
         // Parse file uploads
@@ -133,40 +116,58 @@ export default async function handler(req, res) {
           };
         }
 
-        const updatedDestination = await Destination.findByIdAndUpdate(id, updatedData, {
-          new: true,
-        });
+        const updatedDestination = await Destination.findByIdAndUpdate(
+          id,
+          updatedData,
+          {
+            new: true,
+          }
+        );
 
         if (!updatedDestination) {
-          return res.status(404).json({ error: 'Destination not found' });
+          return res.status(404).json({ error: "Destination not found" });
         }
 
-        return res.status(200).json({ message: 'Destination updated successfully', updatedDestination });
+        return res
+          .status(200)
+          .json({
+            message: "Destination updated successfully",
+            updatedDestination,
+          });
       }
 
-      case 'DELETE': {
+      case "DELETE": {
         // Verify token
-        verifyToken(req);
+         // Token verification middleware
+        await new Promise((resolve, reject) => {
+          verifyToken(req, res, (err) => (err ? reject(err) : resolve()));
+        });
 
         const { id } = req.query;
         if (!id) {
-          return res.status(400).json({ error: 'Destination ID is required' });
+          return res.status(400).json({ error: "Destination ID is required" });
         }
 
         const deletedDestination = await Destination.findByIdAndDelete(id);
         if (!deletedDestination) {
-          return res.status(404).json({ error: 'Destination not found' });
+          return res.status(404).json({ error: "Destination not found" });
         }
 
-        return res.status(200).json({ message: 'Destination deleted successfully' });
+        return res
+          .status(200)
+          .json({ message: "Destination deleted successfully" });
       }
 
       default:
-        return res.status(405).json({ error: `Method ${req.method} not allowed` });
+        return res
+          .status(405)
+          .json({ error: `Method ${req.method} not allowed` });
     }
   } catch (error) {
-    console.error('Error:', error.message);
-    return res.status(500).json({ error: error.message || 'Internal server error' });
+    console.error("Error:", error.message);
+    return res
+      .status(500)
+      .json({ error: error.message || "Internal server error" });
   }
 }
 
