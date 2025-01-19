@@ -4,7 +4,14 @@ const colors = require("tailwindcss/colors");
 module.exports = {
   purge: {
     enabled: true,
-    content: ["./**/*.html", "./*.html", "./**/*.js", "./*.js",'./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+    content: [
+      "./**/*.html",
+      "./*.html",
+      "./**/*.js",
+      "./*.js",
+      "./pages/**/*.{js,ts,jsx,tsx}",
+      "./components/**/*.{js,ts,jsx,tsx}",
+    ],
     options: {
       safelist: [],
     },
@@ -14,6 +21,11 @@ module.exports = {
       ...colors,
     },
     extend: {
+      gridTemplateColumns: {
+        // Add custom classes
+        3: "repeat(3, minmax(0, 1fr))",
+        4: "repeat(4, minmax(0, 1fr))",
+      },
       minHeight: {
         "screen-75": "75vh",
       },

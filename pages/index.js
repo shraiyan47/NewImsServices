@@ -97,7 +97,9 @@ export default function Landing() {
     <>
       <Navbar />
       <main>
-        <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
+        <div
+          className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75"
+        >
           <div
             className="absolute w-full h-full bg-center bg-cover"
             style={{
@@ -293,29 +295,23 @@ export default function Landing() {
         </section>
 
         {/* Find You Destination */}
-        <section className="pt-15 pb-20 mt-10">
-          <div className={landingCSS.sectionFindDestination}>
-            <div className={landingCSS.findDestinationBoxPosition}>
-              <div className={landingCSS.findDestinationBox}>
-                <a
-                  href="https://api.whatsapp.com/send?phone=%2B8801781913380&context=ARDOLsx_QJgX7Te26og4N-iTKssMNYKSfkkp1LbyzuJANw3KL7eZuF028WEeQEyYiSqrPJ6SUaA3TtPeuEWrUqfB1GkDi-XD7lXc_JuY0XVumBuhJQ51hLeib04yUjG6TfsxRsnf8FZbNoDySdqfG_pisA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR303CSeUmTHjUHDU3UL8bJc-zZUpLeaKXJdWPqG5Y2c3CCYYrS30HXbBKo_aem_9zt_wIdViXPoyUADGKmmdQ"
-                  target="_blank"
-                >
-                  <div className={landingCSS.textContainer}>
-                    <small style={{ marginTop: "2rem" }}>
-                      [UNDER DEVELOPMENT, PLEASE CONTACT IN WHATSAPP]
-                    </small>
-                    <p className={landingCSS.textStatics}>
-                      Browse top destinations from over 120 universities
-                      worldwide
-                    </p>
-
-                    <p className={landingCSS.findDestinationText}>
-                      Choose you Degree
-                    </p>
-                  </div>
-                </a>
-              </div>
+        <section className="pt-15 pb-20 mt-10 section-find-destination">
+          <div className="container">
+            <div className="find-destination-box">
+              <Link
+                href="/university/universitiesPage"
+                // target="_blank"
+                rel="noopener noreferrer"
+                className="find-destination-link"
+              >
+                <div className="text-container">
+                  {/* <small>[UNDER DEVELOPMENT, PLEASE CONTACT IN WHATSAPP]</small> */}
+                  <p className="text-statics">
+                    Browse top destinations from over 50 universities worldwide
+                  </p>
+                  <button className="cta-button">Choose Your Degree</button>
+                </div>
+              </Link>
             </div>
           </div>
         </section>
@@ -331,44 +327,50 @@ export default function Landing() {
                 </p>
               </div>
             </div>
-            <div className="flex flex-wrap">
-              {destination.map((dest) => (
-                <div
-                  key={dest._id}
-                  className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  "
-                >
-                  <div className="px-6 py-6 border-2">
-                    <Image
-                      alt="..."
-                      src={bufferToBase64(
-                        dest.thumbnail.data,
-                        dest.thumbnail.contentType
-                      )}
-                      className="shadow-lg   mx-auto max-w-120-px"
-                      width={100}
-                      height={100}
-                      style={{ width: "8rem", height: "8rem" }}
-                    />
-                    <div className="pt-6 text-center">
-                      <h5 className="text-xl font-bold">{dest.title}</h5>
-                      <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                        {dest.countryName}
-                      </p>
-                      <div className="mt-6">
-                        <Link
-                          href={`/destination/${dest._id}`}
-                          className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
-                          type="button"
-                        >
-                          {/* <i className="fab fa-twitter"></i> */}
-                          Learn More
-                        </Link>
+            {loading ? (
+              "Loading..."
+            ) : (
+              <>
+                <div className="flex flex-wrap">
+                  {destination.map((dest) => (
+                    <div
+                      key={dest._id}
+                      className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  "
+                    >
+                      <div className="px-6 py-6 border-2">
+                        <Image
+                          alt="..."
+                          src={bufferToBase64(
+                            dest.thumbnail.data,
+                            dest.thumbnail.contentType
+                          )}
+                          className="shadow-lg   mx-auto max-w-120-px"
+                          width={100}
+                          height={100}
+                          style={{ width: "8rem", height: "8rem" }}
+                        />
+                        <div className="pt-6 text-center">
+                          <h5 className="text-xl font-bold">{dest.title}</h5>
+                          <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
+                            {dest.countryName}
+                          </p>
+                          <div className="mt-6">
+                            <Link
+                              href={`/destination/${dest._id}`}
+                              className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
+                              type="button"
+                            >
+                              {/* <i className="fab fa-twitter"></i> */}
+                              Learn More
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </div>
         </section>
 
