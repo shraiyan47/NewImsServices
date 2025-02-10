@@ -34,6 +34,7 @@ Use a more readable tab size (opinionated).
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  text-size-adjust: 100%; /* 2 */
 }
 
 /*
@@ -4238,6 +4239,7 @@ select {
 }
 
 .find-destination-box {
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   background: rgba(58, 64, 154, 0.8);
   padding: 30px;

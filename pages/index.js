@@ -97,13 +97,11 @@ export default function Landing() {
     <>
       <Navbar />
       <main>
-        <div
-          className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75"
-        >
+        <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
             className="absolute w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage: "url('/img/ims service cover photo.jpg')",
+              backgroundImage: "url('/img/CoverWA.png')",
             }}
           >
             <span
@@ -753,8 +751,13 @@ export default function Landing() {
                   Our Location
                 </h6>
                 <p className="mt-2 mb-4 text-blueGray-400">
-                  House No. 38, Road No. 2, Aram Properties, Bosila, Mohammadpur
-                  1209 Dhaka, Dhaka Division, Bangladesh
+                  <Link
+                    href="https://maps.app.goo.gl/92TTeVGcrkKFLBRX7"
+                    target="_blank"
+                  >
+                    House No. 38, Road No. 2, Aram Properties, Bosila,
+                    Mohammadpur 1209 Dhaka, Dhaka Division, Bangladesh
+                  </Link>
                 </p>
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
@@ -877,6 +880,19 @@ export default function Landing() {
                     </form>
                     <p>{status}</p>
                   </div>
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2029.6006468571452!2d90.34274814192074!3d23.753266991782382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755bfc1d1e33765%3A0x5c0e5a3ae41b255a!2sIMS%20Services!5e1!3m2!1sen!2sbd!4v1739188672125!5m2!1sen!2sbd"
+                    width="592"
+                    height="561"
+                    style={{ border: "1" }}
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                  ></iframe>
                 </div>
               </div>
             </div>

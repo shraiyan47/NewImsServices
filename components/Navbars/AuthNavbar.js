@@ -24,7 +24,7 @@ export default function Navbar(props) {
         className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg backdrop-filter backdrop-blur-md bg-opacity-50 fixed top-0"
         style={{
           backdropFilter: "blur(15px)",
-          background: "rgba(185, 255, 212, 0.44)",
+          background: "rgba(255, 255, 255, 0.79)",
         }}
       >
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
@@ -81,8 +81,8 @@ export default function Navbar(props) {
                   href="https://www.facebook.com/IMSServicesBd/"
                   target="_blank"
                 >
-                  <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-facebook text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">Share</span>
+                  <i className=" fab fa-facebook text-lg leading-lg " style={{color:'blue'}} />
+                  <span className="lg:hidden inline-block ml-2">Facebook</span>
                 </a>
               </li>
 
@@ -92,8 +92,8 @@ export default function Navbar(props) {
                   href="https://api.whatsapp.com/send?phone=%2B8801781913380&context=ARDOLsx_QJgX7Te26og4N-iTKssMNYKSfkkp1LbyzuJANw3KL7eZuF028WEeQEyYiSqrPJ6SUaA3TtPeuEWrUqfB1GkDi-XD7lXc_JuY0XVumBuhJQ51hLeib04yUjG6TfsxRsnf8FZbNoDySdqfG_pisA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR303CSeUmTHjUHDU3UL8bJc-zZUpLeaKXJdWPqG5Y2c3CCYYrS30HXbBKo_aem_9zt_wIdViXPoyUADGKmmdQ"
                   target="_blank"
                 >
-                  <i className="lg:text-blueGray-200 text-blueGray-400 fab fa-whatsapp text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">Whasapp</span>
+                  <i className="fab fa-whatsapp text-lg leading-lg "  style={{color:'green'}}  />
+                  <span className="lg:hidden inline-block ml-2">WhatsApp</span>
                 </a>
               </li>
 

@@ -21,6 +21,7 @@
 }
 
 .findDestinationBox {
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   width: 25%;
   height: 12rem;
@@ -38,6 +39,7 @@
 }
 
 .findDestinationBox:hover {
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   background: rgba(26, 30, 87, 0.685); 
   transform: translateY(-5px);
@@ -47,6 +49,7 @@
 }
 
 .glassEffect {
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   background: rgba(162, 168, 207, 0.208);
   border-radius: 16px;
