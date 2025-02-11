@@ -5,86 +5,91 @@ const partners = [
   {
     name: "Partner 1",
     image:
-      "https://www.kenilworthglobalconsulting.com/wp-content/uploads/2022/05/Best-Universities-in-UK-1.jpeg",
+      "/img/partners/Birmingham City@3x.png",
   },
   {
     name: "Partner 2",
-    image:
-      "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/19/16/graduates-inequality.jpg",
+    image:      "/img/partners/BPP@3x.png",
+
   },
   {
     name: "Partner 3",
-    image: "https://ukstudycentre.co.uk/wp-content/uploads/2018/09/c1.jpg",
+    image:       "/img/partners/Chester@3x.png",
+
   },
   {
     name: "Partner 4",
     image:
-      "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/19/16/graduates-inequality.jpg",
+            "/img/partners/CSUN@3x.png",
+
   },
   {
     name: "Partner 5",
-    image: "https://ukstudycentre.co.uk/wp-content/uploads/2018/09/c1.jpg",
+    image:      "/img/partners/Gannon@3x.png",
+
   },
   {
     name: "Partner 6",
     image:
-      "https://www.kenilworthglobalconsulting.com/wp-content/uploads/2022/05/Best-Universities-in-UK-1.jpeg",
+           "/img/partners/Greenwich@3x.png",
+
   },
   {
-    name: "Partner 1",
+    name: "Partner 7",
     image:
-      "https://www.kenilworthglobalconsulting.com/wp-content/uploads/2022/05/Best-Universities-in-UK-1.jpeg",
+           "/img/partners/Hertfordshire@3x.png",
+
   },
   {
-    name: "Partner 2",
+    name: "Partner 8",
     image:
-      "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/19/16/graduates-inequality.jpg",
+            "/img/partners/Hull@3x.png",
+
   },
   {
-    name: "Partner 3",
-    image: "https://ukstudycentre.co.uk/wp-content/uploads/2018/09/c1.jpg",
+    name: "Partner 9",
+    image:      "/img/partners/London Metropolitan@3x.png",
+
   },
   {
-    name: "Partner 4",
+    name: "Partner 10",
     image:
-      "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/19/16/graduates-inequality.jpg",
+            "/img/partners/Portsmouth@3x.png",
+
   },
   {
-    name: "Partner 5",
-    image: "https://ukstudycentre.co.uk/wp-content/uploads/2018/09/c1.jpg",
+    name: "Partner 11",
+    image:      "/img/partners/Prifysgol Cymru@3x.png", //public\img\partners\Prifysgol Wrecsam@3x.png
+
   },
   {
-    name: "Partner 6",
+    name: "Partner 12",
     image:
-      "https://www.kenilworthglobalconsulting.com/wp-content/uploads/2022/05/Best-Universities-in-UK-1.jpeg",
+           "/img/partners/Prifysgol Wrecsam@3x.png",
+
   },
   {
-    name: "Partner 1",
+    name: "Partner 13",
     image:
-      "https://www.kenilworthglobalconsulting.com/wp-content/uploads/2022/05/Best-Universities-in-UK-1.jpeg",
+           "/img/partners/South Wales@3x.png",
+
   },
   {
-    name: "Partner 2",
+    name: "Partner 14",
     image:
-      "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/19/16/graduates-inequality.jpg",
+            "/img/partners/Uni of Law@3x.png",
+
   },
   {
-    name: "Partner 3",
-    image: "https://ukstudycentre.co.uk/wp-content/uploads/2018/09/c1.jpg",
+    name: "Partner 15",
+    image:      "/img/partners/UWS London@3x.png",
+
   },
   {
-    name: "Partner 4",
+    name: "Partner 16",
     image:
-      "https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/19/16/graduates-inequality.jpg",
-  },
-  {
-    name: "Partner 5",
-    image: "https://ukstudycentre.co.uk/wp-content/uploads/2018/09/c1.jpg",
-  },
-  {
-    name: "Partner 6",
-    image:
-      "https://www.kenilworthglobalconsulting.com/wp-content/uploads/2022/05/Best-Universities-in-UK-1.jpeg",
+            "/img/partners/Wolverhampton@3x.png", //public\img\partners\Wolverhampton@3x.png
+
   },
 ];
 
@@ -92,14 +97,28 @@ const PartnerSlider = () => {
   const sliderRef = useRef(null);
 
   useEffect(() => {
+    console.log(partners.length)
+    const slideTotal = partners.length
+    let x = 1;
     const interval = setInterval(() => {
-      slideNext();
+      x = x + 1;
+      console.log(x, slideTotal)
+
+      if (x === slideTotal-1) {
+       console.log(x)
+       slidePrev(x);
+       x = 1;
+      }
+      else{
+        slideNext();
+      }
     }, 2500); // Automatically change slide every 5 seconds
     return () => clearInterval(interval);
   });
 
   const slideNext = () => {
     if (sliderRef.current) {
+      console.log(sliderRef.current.offsetWidth / 4)
       sliderRef.current.scrollBy({
         left: sliderRef.current.offsetWidth / 4, // Slide by one partner width
         behavior: "smooth",
@@ -107,12 +126,19 @@ const PartnerSlider = () => {
     }
   };
 
-  const slidePrev = () => {
+  const slidePrev = (x) => {
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({
-        left: -(sliderRef.current.offsetWidth / 4), // Slide back by one partner width
-        behavior: "smooth",
-      });
+      if(x >= 15){
+        sliderRef.current.scrollBy({
+          left: -(218*16), // Slide back by one partner width
+          behavior: "smooth",
+        });
+      }else{
+        sliderRef.current.scrollBy({
+          left: -(sliderRef.current.offsetWidth / 4), // Slide back by one partner width
+          behavior: "smooth",
+        });
+      }
     }
   };
 

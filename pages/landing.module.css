@@ -1,12 +1,12 @@
 .sectionStatics {
-  background: url("/img/ims service cover photo.jpg") no-repeat center center /
+  background: url("/img/Statistics v2.png") no-repeat center center /
     cover;
   /* padding: 50px 0; */
   position: relative;
 }
 
 .sectionFindDestination {
-  background: url("/img/ims service cover photo.jpg") no-repeat center center /
+  background: url("/img/Choose your Degree.png") no-repeat center center /
     cover;
   /* padding: 50px 0; */
   position: relative;
@@ -49,8 +49,8 @@
 }
 
 .glassEffect {
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(0.5px);
+  backdrop-filter: blur(0.5px);
   background: rgba(162, 168, 207, 0.208);
   border-radius: 16px;
   padding: 50px 0;
