@@ -12,6 +12,7 @@
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.3.0",
     "dotenv": "^16.4.7",
+    "formidable": "^3.5.2",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.9",
     "jsonwebtoken": "^9.0.2",

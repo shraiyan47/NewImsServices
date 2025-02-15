@@ -1,0 +1,163 @@
+/* Statistics Section Styles */
+.sectionStatics {
+  background: url("/img/Statistics v2.png") no-repeat center center / cover;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+}
+
+.glassEffect {
+  -webkit-backdrop-filter: blur(0.5px);
+  backdrop-filter: blur(0.5px);
+  background: rgba(162, 168, 207, 0.208);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.circle {
+  width: 150px;
+  height: 150px;
+  background: rgba(58, 64, 154, 0.843);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  transition: transform 0.3s ease;
+}
+
+.circle:hover {
+  transform: scale(1.1);
+}
+
+.textContainer {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column-reverse;
+}
+
+.textStatics {
+  padding: 10px;
+  color: #ffffff;
+  font-family: "Roboto Slab", Sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.1em;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.textNumber {
+  color: #ffffff;
+  font-family: "Roboto", Sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+}
+
+/* Find Destination Section Styles */
+.sectionFindDestination {
+  background: url("/img/Choose your Degree.png") no-repeat center center / cover;
+  position: relative;
+  min-height: 300px;
+}
+
+.findDestinationBoxPosition {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  right: 26%;
+}
+
+.findDestinationBox {
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  width: 25%;
+  height: 12rem;
+  background: rgba(58, 64, 154, 0.685);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  border-color: #180b64;
+  border-width: 1px;
+  transition: transform 0.5s, border-color 0.7s, box-shadow 0.2s, backdrop-filter 0.2s;
+}
+
+.findDestinationBox:hover {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  background: rgba(26, 30, 87, 0.685);
+  transform: translateY(-5px);
+  border-color: rgb(4, 8, 48);
+  border-width: 2px;
+  box-shadow: 0 4px 8px rgba(8, 1, 26, 0.63);
+}
+
+.findDestinationText {
+  color: #ffffff;
+  font-family: "Roboto", Sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .glassEffect {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 10px;
+  }
+
+  .circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .textNumber {
+    font-size: 32px;
+  }
+
+  .textStatics {
+    font-size: 12px;
+  }
+
+  .findDestinationBox {
+    width: 80%;
+    right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .textNumber {
+    font-size: 24px;
+  }
+
+  .textStatics {
+    font-size: 11px;
+  }
+}

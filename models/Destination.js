@@ -6,6 +6,7 @@ const DestinationSchema = new mongoose.Schema({
   countryName: { type: String, required: true },
   destination: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
+  isActive: { type: Boolean, default: true },
   thumbnail: {
     data: Buffer, // Store image data as binary
     contentType: String, // Store the MIME type of the image

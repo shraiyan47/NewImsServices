@@ -16,12 +16,20 @@ export default function Navbar(props) {
     setUrl(window.location.hostname)
   }, [router])
   
+  // Add scroll handler
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setNavbarOpen(false);
+    }
+  };
 
   // console.log(router, url);
   return (
     <>
       <nav
-        className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg backdrop-filter backdrop-blur-md bg-opacity-50 fixed top-0"
+        className="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg"
         style={{
           backdropFilter: "blur(15px)",
           background: "rgba(255, 255, 255, 0.79)",
@@ -48,7 +56,7 @@ export default function Navbar(props) {
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
-              <i className="text-white fas fa-bars"></i>
+              <i className="text-gray-800 fas fa-bars"></i>
             </button>
           </div>
           <div
@@ -70,31 +78,71 @@ export default function Navbar(props) {
               </li>
             </ul> */}
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+              <li className="flex items-center">
+                <button
+                  onClick={() => scrollToSection("services")}
+                  className="lg:text-gray-800 text-gray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold hover:text-gray-600"
+                >
+                  Services
+                </button>
+              </li>
+              <li className="flex items-center">
+                <button
+                  onClick={() => scrollToSection("destinations")}
+                  className="lg:text-gray-800 text-gray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold hover:text-gray-600"
+                >
+                  Destinations
+                </button>
+              </li>
+              <li className="flex items-center">
+                <button
+                  onClick={() => scrollToSection("testimonials")}
+                  className="lg:text-gray-800 text-gray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold hover:text-gray-600"
+                >
+                  Testimonials
+                </button>
+              </li>
+              <li className="flex items-center">
+                <button
+                  onClick={() => scrollToSection("partners")}
+                  className="lg:text-gray-800 text-gray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold hover:text-gray-600"
+                >
+                  Partners
+                </button>
+              </li>
+              <li className="flex items-center">
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="lg:text-gray-800 text-gray-700 px-3 py-4 lg:py-2 flex items-center text-sm uppercase font-bold hover:text-gray-600"
+                >
+                  Contact
+                </button>
+              </li>
               {url === "localhost" && (
                 <li className="flex items-center">
                   <PagesDropdown />
                 </li>
               )}
               <li className="flex items-center">
-                <a
+                <Link
                   className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   href="https://www.facebook.com/IMSServicesBd/"
                   target="_blank"
                 >
                   <i className=" fab fa-facebook text-lg leading-lg " style={{color:'blue'}} />
                   <span className="lg:hidden inline-block ml-2">Facebook</span>
-                </a>
+                </Link>
               </li>
 
               <li className="flex items-center">
-                <a
+                <Link
                   className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   href="https://api.whatsapp.com/send?phone=%2B8801781913380&context=ARDOLsx_QJgX7Te26og4N-iTKssMNYKSfkkp1LbyzuJANw3KL7eZuF028WEeQEyYiSqrPJ6SUaA3TtPeuEWrUqfB1GkDi-XD7lXc_JuY0XVumBuhJQ51hLeib04yUjG6TfsxRsnf8FZbNoDySdqfG_pisA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR303CSeUmTHjUHDU3UL8bJc-zZUpLeaKXJdWPqG5Y2c3CCYYrS30HXbBKo_aem_9zt_wIdViXPoyUADGKmmdQ"
                   target="_blank"
                 >
                   <i className="fab fa-whatsapp text-lg leading-lg "  style={{color:'green'}}  />
                   <span className="lg:hidden inline-block ml-2">WhatsApp</span>
-                </a>
+                </Link>
               </li>
 
                

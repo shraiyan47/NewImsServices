@@ -22,7 +22,9 @@ const uploadMiddleware = promisify(
 
 export default async function handler(req, res) {
   await connectToDatabase();
-
+ 
+  console.log("req.method", req.method);
+  
   try {
     switch (req.method) {
       case "POST": {
@@ -93,13 +95,14 @@ export default async function handler(req, res) {
         // Parse file uploads
         await uploadMiddleware(req, res);
 
-        const { title, countryName, destination } = req.body;
+        const { title, countryName, destination, isActive } = req.body;
 
         // Update the destination
         const updatedData = {
           title,
           countryName,
           destination,
+          isActive,
         };
 
         if (req.files.thumbnail) {

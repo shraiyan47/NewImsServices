@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Head from "next/head";
 
 // components
 
@@ -59,10 +60,10 @@ export default function Landing() {
   useEffect(() => {
     setLoading(true);
     const myHeaders = new Headers();
-    myHeaders.append(
-      "Authorization",
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzM2Nzg2ODAwLCJleHAiOjE3MzY4MTU2MDB9.MeYxJl79exOOvhakMStqRutlkqaawPm6iXgRhD-LbPk"
-    );
+    // myHeaders.append(
+    //   "Authorization",
+    //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzM2Nzg2ODAwLCJleHAiOjE3MzY4MTU2MDB9.MeYxJl79exOOvhakMStqRutlkqaawPm6iXgRhD-LbPk"
+    // );
 
     const requestOptions = {
       method: "GET",
@@ -95,64 +96,97 @@ export default function Landing() {
 
   return (
     <>
+      <Head>
+        <title>
+          Best Student Consultancy Service in Bangladesh | IMS Services
+        </title>
+        <meta
+          name="description"
+          content="IMS Services is the leading international student consultancy in Bangladesh with global offices in UK, USA & Australia. Expert guidance for university admissions, scholarships & visa services."
+        />
+        <meta
+          name="keywords"
+          content="student consultancy bangladesh, best education consultancy dhaka, study abroad bangladesh, university admission help, scholarship assistance bangladesh, visa services dhaka, IMS Services, overseas education consultant"
+        />
+
+        {/* Open Graph / Social Media */}
+        <meta
+          property="og:title"
+          content="Best Student Consultancy Service in Bangladesh | IMS Services"
+        />
+        <meta
+          property="og:description"
+          content="Leading international student consultancy in Bangladesh helping students achieve their study abroad dreams. Expert guidance for university admissions, scholarships & visa services."
+        />
+        <meta property="og:image" content="/img/logo.png" />
+        <meta property="og:url" content="https://imsservicesbd.com" />
+
+        {/* Additional SEO tags */}
+        <link rel="canonical" href="https://imsservicesbd.com" />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="geo.region" content="BD-13" />
+        <meta name="geo.placename" content="Dhaka" />
+        <meta name="geo.position" content="23.7461;90.3742" />
+        <meta name="ICBM" content="23.7461, 90.3742" />
+      </Head>
       <Navbar />
       <main>
-        <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
-          <div
-            className="absolute w-full h-full bg-center bg-cover"
-            style={{
-              backgroundImage: "url('/img/CoverWA.png')",
-            }}
-          >
-            <span
-              id="blackOverlay"
-              className="w-full h-full absolute opacity-75 bg-black"
-            ></span>
+        {/* Update the main heading for SEO */}
+        <h1 className="sr-only">
+          Best Student Consultancy Service in Bangladesh - IMS Services
+        </h1>
+
+        {/* Cover section */}
+        <div className="relative pt-16">
+          <div className="relative pb-32 flex content-center items-center justify-center min-h-screen-75">
+            {/* Cover Image on Background Start*/}
+            <div
+              className="absolute top-0 w-full h-full bg-center bg-cover"
+              style={{
+                backgroundImage: "url('/img/CoverWA.png')",
+              }}
+            >
+              {/* Cover Image on Background End */}
+            </div>
           </div>
-          <div className="container relative mx-auto mt-12">
-            <div className="items-center flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-                <div className="pr-12">
-                  <h1 className="text-white font-semibold text-5xl">
-                    Welcome to IMS Services
-                  </h1>
-                  <p className="mt-4 text-lg text-blueGray-200">
-                    IMS Services is a leading international student recruitment
-                    agency with headquarters in Dhaka and global offices across
-                    United Kingdom (London), United States (New York), and
-                    Australia (Melbourne). Our main focus is on the
-                    international student market, aiming to create exceptional
-                    opportunities for our students. We have successfully placed
-                    candidates in top universities across various sectors, such
-                    as law, economics, medicine, engineering, and business.
-                  </p>
+        </div>
+
+        {/* Services */}
+        <section id="services" className="pb-30 bg-blueGray-200 ">
+          <br />
+          <br />
+
+          <div className="container mx-auto px-4">
+            <div className="container relative mx-auto mt-12">
+              <div className="items-center flex flex-wrap ">
+                <div className="w-full lg:w-10/12 px-4 ml-auto mr-auto text-center">
+                  <div className="pr-12 mt-10 mb-10">
+                    <h1 className="text-gray-800 font-semibold text-5xl">
+                      Your Gateway to World-Class Education
+                    </h1>
+                    <h2 className="text-2xl font-semibold text-gray-800 hidden">
+                      IMS Services - Best Education Consultancy in Bangladesh
+                    </h2>
+                    <h4 className="mt-4 text-lg text-gray-800 ">
+                      IMS Services is a leading international student
+                      consultancy agency with headquarters in Dhaka and global
+                      offices across United Kingdom (London), United States (New
+                      York), and Australia (Melbourne). Our main focus is on the
+                      international student market, aiming to create exceptional
+                      opportunities for our students. We have successfully
+                      placed candidates in top universities across various
+                      sectors, such as law, economics, medicine, engineering,
+                      and business.
+                    </h4>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-16"
-            style={{ transform: "translateZ(0)" }}
-          >
-            <svg
-              className="absolute bottom-0 overflow-hidden"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-              version="1.1"
-              viewBox="0 0 2560 100"
-              x="0"
-              y="0"
-            >
-              <polygon
-                className="text-blueGray-200 fill-current"
-                points="2560 0 2560 100 0 100"
-              ></polygon>
-            </svg>
-          </div>
-        </div>
-        {/* Services */}
-        <section className="pb-30 bg-blueGray-200 -mt-24">
-          <div className="container mx-auto px-4">
+            <br />
+            <br />
+            <br />
+            <br />
             <div className="flex flex-wrap">
               <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
@@ -292,8 +326,11 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Find You Destination */}
-        <section className="pt-15 pb-20 mt-10 section-find-destination">
+        {/* Find Your Destination */}
+        <section
+          id="destinations"
+          className="pt-15 pb-20 mt-10 section-find-destination"
+        >
           <div className="container">
             <div className="find-destination-box">
               <Link
@@ -320,6 +357,14 @@ export default function Landing() {
             <div className="flex flex-wrap justify-center text-center mb-12">
               <div className="w-full lg:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold">Our Top Destinations</h2>
+                <h3 className="text-2xl font-semibold hidden">
+                  IMS Services covers a wide range of study destinations. We
+                  have successfully placed candidates in top universities across
+                  various sectors, such as law, economics, medicine,
+                  engineering, and business. We cover more than 50 universities
+                  worldwide and have global offices in the UK, USA, Malaysia,
+                  Cyprus and Australia.
+                </h3>
                 <p className="text-lg leading-relaxed m-4 text-blueGray-500">
                   Explore Top Study Destinations
                 </p>
@@ -330,42 +375,45 @@ export default function Landing() {
             ) : (
               <>
                 <div className="flex flex-wrap">
-                  {destination.map((dest) => (
-                    <div
-                      key={dest._id}
-                      className="w-full sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-3/12 lg:mb-1 mb-12 px-4  "
-                    >
-                      <div className="px-6 py-6 border-2">
-                        <Image
-                          alt="..."
-                          src={bufferToBase64(
-                            dest.thumbnail.data,
-                            dest.thumbnail.contentType
-                          )}
-                          className="shadow-lg   mx-auto max-w-120-px"
-                          width={100}
-                          height={100}
-                          style={{ width: "8rem", height: "8rem" }}
-                        />
-                        <div className="pt-6 text-center">
-                          <h5 className="text-xl font-bold">{dest.title}</h5>
-                          <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                            {dest.countryName}
-                          </p>
-                          <div className="mt-6">
-                            <Link
-                              href={`/destination/${dest._id}`}
-                              className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
-                              type="button"
-                            >
-                              {/* <i className="fab fa-twitter"></i> */}
-                              Learn More
-                            </Link>
+                  {destination
+                    .slice()
+                    .reverse()
+                    .map((dest) => (
+                      <div
+                        key={dest._id}
+                        className="w-full sm:w-6/12 md:w-4/12 lg:w-4/12 xl:w-4/12 mb-8 px-4"
+                      >
+                        <div className="px-6 py-6 border-2">
+                          <Image
+                            alt="..."
+                            src={bufferToBase64(
+                              dest.thumbnail.data,
+                              dest.thumbnail.contentType
+                            )}
+                            className="shadow-lg   mx-auto max-w-120-px"
+                            width={1}
+                            height={1}
+                            style={{ width: "8rem", height: "8rem" }}
+                          />
+                          <div className="pt-6 text-center">
+                            <h5 className="text-xl font-bold">{dest.title}</h5>
+                            <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
+                              {dest.countryName}
+                            </p>
+                            <div className="mt-6">
+                              <Link
+                                href={`/destination/${dest._id}`}
+                                className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
+                                type="button"
+                              >
+                                {/* <i className="fab fa-twitter"></i> */}
+                                Learn More
+                              </Link>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </>
             )}
@@ -373,9 +421,11 @@ export default function Landing() {
         </section>
 
         {/* Statastics  */}
-        <section className="pt-10 pb-10 ">
+        <section className="py-10 px-4">
           <div className={landingCSS.sectionStatics}>
-            <div className={landingCSS.glassEffect}>
+            <div
+              className={`${landingCSS.glassEffect} flex-wrap justify-center`}
+            >
               <div className={landingCSS.circle}>
                 <div className={landingCSS.textContainer}>
                   <p className={landingCSS.textStatics}>Universities</p>
@@ -405,8 +455,8 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Comments / Feedback  */}
-        <section className="pt-10 pb-48 ">
+        {/* Testimonials */}
+        <section id="testimonials" className="pt-10 pb-48 ">
           <div className="container mx-auto px-4">
             {/* ///////////////////// SLIDER ///////////////////////////  */}
             <div className="flex flex-wrap items-center mt-32">
@@ -442,8 +492,8 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Comments / Feedback  */}
-        <section className="pt-10 pb-48 ">
+        {/* Partners */}
+        <section id="partners" className="pt-10 pb-48 ">
           <div className="container mx-auto px-4">
             {/* ///////////////////// SLIDER ///////////////////////////  */}
             <div className="flex flex-wrap justify-center text-center mb-12">
@@ -708,7 +758,7 @@ export default function Landing() {
         </section> */}
 
         {/* Contact Us  */}
-        <section className="pb-20 relative block bg-blueGray-800">
+        <section id="contact" className="pb-20 relative block bg-blueGray-800">
           <div
             className="bottom-auto left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
             style={{ transform: "translateZ(0)", top: "1px" }}
@@ -795,12 +845,12 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Contact form  */}
-
+        {/* Contact form and Map */}
         <section className="relative block py-24 lg:pt-0 bg-blueGray-800">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
-              <div className="w-full lg:w-6/12 px-4">
+              {/* Contact Form */}
+              <div className="w-full lg:w-6/12 px-4 mb-8">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
                   <div className="flex-auto p-5 lg:p-10">
                     <form onSubmit={handleSubmit}>
@@ -882,16 +932,19 @@ export default function Landing() {
                   </div>
                 </div>
               </div>
+
+              {/* Map */}
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2029.6006468571452!2d90.34274814192074!3d23.753266991782382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755bfc1d1e33765%3A0x5c0e5a3ae41b255a!2sIMS%20Services!5e1!3m2!1sen!2sbd!4v1739188672125!5m2!1sen!2sbd"
+                    className="w-full"
                     width="592"
                     height="561"
-                    style={{ border: "1" }}
-                    allowfullscreen=""
+                    style={{ border: "0" }}
+                    allowFullScreen=""
                     loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
+                    referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
                 </div>
               </div>

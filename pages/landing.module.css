@@ -53,17 +53,19 @@
   backdrop-filter: blur(0.5px);
   background: rgba(162, 168, 207, 0.208);
   border-radius: 16px;
-  padding: 50px 0;
+  padding: 20px;
   /* max-width: 100%; */
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .circle {
-  width: 180px;
-  height: 180px;
+  width: 150px;
+  height: 150px;
   background: rgba(58, 64, 154, 0.843);
   border-radius: 50%;
   display: flex;
@@ -73,6 +75,7 @@
   font-size: 14px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 10px;
 }
 
 .textStatics {
@@ -109,4 +112,38 @@
   justify-content: center;
   align-items: stretch;
   flex-direction: column-reverse;
+}
+
+@media (max-width: 768px) {
+  .circle {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .textNumber {
+    font-size: 32px;
+  }
+  
+  .textStatics {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .glassEffect {
+    padding: 10px;
+  }
+
+  .circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .textNumber {
+    font-size: 24px;
+  }
+
+  .textStatics {
+    font-size: 11px;
+  }
 }

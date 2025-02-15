@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import styles from "./MultipleSlide.module.css";
+import Image from "next/image";
 
 const partners = [
   {
@@ -153,10 +154,13 @@ const PartnerSlider = () => {
       <div className={styles.slider} ref={sliderRef}>
         {partners.map((partner, index) => (
           <div className={styles.partnerCard} key={index}>
-            <img
+            <Image
               src={partner.image}
               alt={partner.name}
-              style={{ width: "10rem", height: "7rem" }}
+              style={{ width: "15rem", height: "7rem" }}
+              layout="responsive"
+              width={50}
+              height={50}
             />
           </div>
         ))}

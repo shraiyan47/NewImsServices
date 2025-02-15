@@ -79,6 +79,8 @@ export default function UploadDestination({ data = null, edit = false }) {
 
     const token = localStorage.getItem("token"); // Replace with actual token
 
+    console.log(formData, thumbnail, coverPhoto);
+
     const data = new FormData();
     data.append("title", formData.title);
     data.append("countryName", formData.countryName);
@@ -86,20 +88,24 @@ export default function UploadDestination({ data = null, edit = false }) {
     if (thumbnail) data.append("thumbnail", thumbnail);
     if (coverPhoto) data.append("coverPhoto", coverPhoto);
 
-    const response = await fetch(
-      (edit && "/api/admin/destination/?id=" + id) || "/api/admin/destination",
-      {
-        method: (edit && "PUT") || "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: data,
-      }
-    );
+    try {
+      const response = await fetch(
+        (edit && "/api/admin/destination/?id=" + id) || "/api/admin/destination",
+        {
+          method: (edit && "PUT") || "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: data,
+        }
+      );
 
-    const result = await response.json();
-    console.log(result);
-    router.reload();
+      const result = await response.json();
+      console.log(result);
+      router.reload();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
