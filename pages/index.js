@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Head from "next/head";
 
 // components
 
@@ -11,7 +10,24 @@ import CustomAutoSlider from "components/Slider/Slider";
 
 import landingCSS from "./landing.module.css";
 import PartnerSlider from "components/Slider/MultipleSlide";
+import Head from "next/head";
 
+// Add these utility functions at the top level
+const sanitizeInput = (input) => {
+  // Basic XSS prevention by escaping HTML special characters
+  return input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;');
+};
+
+const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
 export default function Landing() {
   const [destination, setDestination] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,28 +39,89 @@ export default function Landing() {
   });
   const [status, setStatus] = useState("");
 
+  // Add rate limiting state
+  const [lastSubmissionTime, setLastSubmissionTime] = useState(0);
+  const SUBMISSION_COOLDOWN = 60000; // 1 minute cooldown
+
+  const validateForm = () => {
+    // Name validation
+    if (formData.name.length < 2 || formData.name.length > 50) {
+      setStatus('Name must be between 2 and 50 characters');
+      return false;
+    }
+
+    // Email validation
+    if (!isValidEmail(formData.email)) {
+      setStatus('Please enter a valid email address');
+      return false;
+    }
+
+    // Message validation
+    if (formData.feedback.length < 10 || formData.feedback.length > 1000) {
+      setStatus('Message must be between 10 and 1000 characters');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    // Limit input length to prevent overflow attacks
+    const maxLengths = {
+      name: 50,
+      email: 100,
+      feedback: 1000
+    };
+
+    if (value.length <= maxLengths[name]) {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check cooldown
+    const now = Date.now();
+    if (now - lastSubmissionTime < SUBMISSION_COOLDOWN) {
+      setStatus(`Please wait ${Math.ceil((SUBMISSION_COOLDOWN - (now - lastSubmissionTime)) / 1000)} seconds before submitting again`);
+      return;
+    }
+
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+
     setStatus("Submitting...");
     setSubmitted(true);
+
+    // Sanitize input before sending
+    const sanitizedData = {
+      name: sanitizeInput(formData.name.trim()),
+      email: sanitizeInput(formData.email.trim().toLowerCase()),
+      feedback: sanitizeInput(formData.feedback.trim())
+    };
+
     try {
       const response = await fetch("/api/feedback", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: { 
+          "Content-Type": "application/json",
+          // Add CSRF token if you have one
+          // 'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify(sanitizedData),
       });
 
       if (response.ok) {
         setStatus("Feedback submitted successfully!");
         setFormData({ name: "", email: "", feedback: "" }); // Reset form
         setSubmitted(false);
+        setLastSubmissionTime(now);
       } else {
         const errorData = await response.json();
         setStatus(`Error: ${errorData.error}`);
@@ -57,34 +134,33 @@ export default function Landing() {
     }
   };
 
-  useEffect(() => {
-    setLoading(true);
-    const myHeaders = new Headers();
-    // myHeaders.append(
-    //   "Authorization",
-    //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzM2Nzg2ODAwLCJleHAiOjE3MzY4MTU2MDB9.MeYxJl79exOOvhakMStqRutlkqaawPm6iXgRhD-LbPk"
-    // );
 
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch("/api/admin/destination", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setDestination(data);
+      } catch (error) {
+        console.error("Error fetching destinations:", error);
+        // Optionally set an error state here to show to the user
+      } finally {
+        setLoading(false);
+      }
     };
 
-    try {
-      fetch("/api/admin/destination", requestOptions)
-        .then((response) => response.json())
-        .then((result) => {
-          // console.log(result)
-          setDestination(result);
-          setLoading(false);
-        })
-        .catch((error) => console.error(error));
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-
-    // fetch("/api/admin/destination", requestOptions)
+    fetchDestinations();
   }, []);
 
   // Function to convert buffer data to base64
@@ -852,8 +928,8 @@ export default function Landing() {
               {/* Contact Form */}
               <div className="w-full lg:w-6/12 px-4 mb-8">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
-                  <div className="flex-auto p-5 lg:p-10">
-                    <form onSubmit={handleSubmit}>
+                <div className="flex-auto p-5 lg:p-10">
+                    <form onSubmit={handleSubmit} noValidate>
                       <h4 className="text-2xl font-semibold">
                         Leave us a message
                       </h4>
@@ -874,6 +950,9 @@ export default function Landing() {
                           value={formData.name}
                           onChange={handleChange}
                           required
+                          minLength="2"
+                          maxLength="50"
+                          pattern="[A-Za-z\s]+"
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           placeholder="Full Name"
                         />
@@ -892,6 +971,7 @@ export default function Landing() {
                           value={formData.email}
                           onChange={handleChange}
                           required
+                          maxLength="100"
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           placeholder="Email"
                         />
@@ -913,6 +993,7 @@ export default function Landing() {
                           value={formData.feedback}
                           onChange={handleChange}
                           required
+                          maxLength="1000"
                         />
                       </div>
                       <div className="text-center mt-6">
