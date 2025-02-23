@@ -1,13 +1,12 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "react-quill/dist/quill.snow.css"; // Import the Quill CSS for styling
 // Dynamically import ReactQuill with SSR disabled
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function UploadDestination({ data = null, edit = false }) {
-
 
   const [formData, setFormData] = useState({
     title: (edit && data.title) || "",
@@ -33,32 +32,11 @@ export default function UploadDestination({ data = null, edit = false }) {
     });
   };
 
-
   const router = useRouter();
   const id = (edit && data._id) || null;
 
-  const bufferToBase64 = (bufferData, contentType) => {
-    return `data:${contentType};base64,${Buffer.from(bufferData).toString(
-      "base64"
-    )}`;
-  };
-
-  const [thumbnail, setThumbnail] = useState(
-    (edit &&
-      bufferToBase64(
-        data?.thumbnail?.data?.data,
-        data?.thumbnail?.contentType
-      )) ||
-      ""
-  );
-  const [coverPhoto, setCoverPhoto] = useState(
-    (edit &&
-      bufferToBase64(
-        data?.coverPhoto?.data?.data,
-        data?.coverPhoto?.contentType
-      )) ||
-      ""
-  );
+  const [thumbnailPreview, setThumbnailPreview] = useState(data?.thumbnail || null);
+  const [coverPhotoPreview, setCoverPhotoPreview] = useState(data?.coverPhoto || null);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -69,24 +47,47 @@ export default function UploadDestination({ data = null, edit = false }) {
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
-    console.log(files, name);
-    if (name === "thumbnail") setThumbnail(files[0]);
-    if (name === "coverPhoto") setCoverPhoto(files[0]);
+    if (files.length > 0) {
+      const file = files[0];
+      setFormData((prev) => ({
+        ...prev,
+        [name]: file,
+      }));
+      
+      // Create URL preview for the selected file
+      const previewUrl = URL.createObjectURL(file);
+      if (name === 'thumbnail') {
+        setThumbnailPreview(previewUrl);
+      } else if (name === 'coverPhoto') {
+        setCoverPhotoPreview(previewUrl);
+      }
+    }
   };
+
+  useEffect(() => {
+    return () => {
+      if (thumbnailPreview && !thumbnailPreview.startsWith('/img/')) {
+        URL.revokeObjectURL(thumbnailPreview);
+      }
+      if (coverPhotoPreview && !coverPhotoPreview.startsWith('/img/')) {
+        URL.revokeObjectURL(coverPhotoPreview);
+      }
+    };
+  }, [thumbnailPreview, coverPhotoPreview]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const token = localStorage.getItem("token"); // Replace with actual token
 
-    console.log(formData, thumbnail, coverPhoto);
+    console.log(formData, thumbnailPreview, coverPhotoPreview);
 
     const data = new FormData();
     data.append("title", formData.title);
     data.append("countryName", formData.countryName);
     data.append("destination", formData.destination);
-    if (thumbnail) data.append("thumbnail", thumbnail);
-    if (coverPhoto) data.append("coverPhoto", coverPhoto);
+    if (formData.thumbnail) data.append("thumbnail", formData.thumbnail);
+    if (formData.coverPhoto) data.append("coverPhoto", formData.coverPhoto);
 
     try {
       const response = await fetch(
@@ -142,22 +143,6 @@ export default function UploadDestination({ data = null, edit = false }) {
           onChange={handleInputChange}
         />{" "}
       </div>
-      {/* <div className="relative w-full mb-3">
-        <label
-          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-          htmlFor="grid-password"
-        >
-          Destination
-        </label>
-        <input
-          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          type="text"
-          name="destination"
-          placeholder="Destination"
-          value={formData?.destination}
-          onChange={handleInputChange}
-        />
-      </div> */}
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-4">Details about Destination</h2>
         <ReactQuill
@@ -200,14 +185,23 @@ export default function UploadDestination({ data = null, edit = false }) {
         >
           Thumbnail
         </label>
-        <input type="file" name="thumbnail" onChange={handleFileChange} />
-        {thumbnail !== "" && (
-          <Image
-            src={edit ? thumbnail : URL.createObjectURL(thumbnail)}
-            alt="thumbnail"
-            width={100}
-            height={100}
-          />
+        <input
+          type="file"
+          name="thumbnail"
+          onChange={handleFileChange}
+          accept="image/*"
+          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+        />
+        {thumbnailPreview && (
+          <div className="mt-2">
+            <Image
+              src={thumbnailPreview}
+              alt="Thumbnail preview"
+              width={100}
+              height={100}
+              className="object-cover"
+            />
+          </div>
         )}
       </div>
       <div className="relative w-full mb-3">
@@ -221,15 +215,19 @@ export default function UploadDestination({ data = null, edit = false }) {
           type="file"
           name="coverPhoto"
           onChange={handleFileChange}
-          multiple
+          accept="image/*"
+          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
         />
-        {coverPhoto !== "" && (
-          <Image
-            src={edit ? coverPhoto : URL.createObjectURL(coverPhoto)}
-            alt="coverPhoto"
-            width={100}
-            height={100}
-          />
+        {coverPhotoPreview && (
+          <div className="mt-2">
+            <Image
+              src={coverPhotoPreview}
+              alt="Cover photo preview"
+              width={200}
+              height={100}
+              className="object-cover"
+            />
+          </div>
         )}
       </div>
       <button

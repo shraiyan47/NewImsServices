@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 // layout for page
@@ -8,12 +8,23 @@ import { useRouter } from "next/router";
 
 export default function Login() {
   const [showpass, setShowpass] = useState("password");
-  const router = useRouter()
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
+    password:  "",
   });
+  // const router = useRouter();
+  // eslint-disable-next-line no-restricted-globals
+  useEffect(() => {
+    
+      window.location.hostname === "localhost"
+     &&
+      setFormData({
+        email: "admin@example.com",
+        password: "securepassword123",
+      });
+  }, [router]);
 
   const [message, setMessage] = useState("");
 
@@ -31,10 +42,10 @@ export default function Login() {
     console.log(params);
 
     try {
-      const response = await fetch('/api/admin/login', {
-        method: 'POST',
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -42,15 +53,15 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        setFormData({ email: '', password: '' }); // Reset form
-        setMessage('Feedback submitted successfully!');
-        localStorage.setItem("token",data.token);
-        router.push('/admin/dashboard')
+        setFormData({ email: "", password: "" }); // Reset form
+        setMessage("Feedback submitted successfully!");
+        localStorage.setItem("token", data.token);
+        router.push("/admin/dashboard");
       } else {
-        setMessage(data.error || 'Something went wrong!');
+        setMessage(data.error || "Something went wrong!");
       }
     } catch (error) {
-      setMessage('An error occurred. Please try again.');
+      setMessage("An error occurred. Please try again.");
     }
   }
 

@@ -5,11 +5,60 @@ import mongoose from "mongoose";
 import { promisify } from "util";
 import { verifyToken } from "../verifytoken";
 import { connectToDatabase } from "../connectDB";
+import path from "path";
+import fs from "fs";
+
+// Helper function to create URL-safe filenames
+const createSafeFileName = (title, fieldname) => {
+  const timestamp = Date.now();
+  const safeTitle = title
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+  return `${safeTitle}-${fieldname}-${timestamp}`;
+};
 
 // Multer setup for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadDir = path.join(process.cwd(), 'public', 'img', 'destinations');
+    // Create directory if it doesn't exist
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    // Access title from the parsed form fields
+    let formTitle = 'untitled';
+    if (req.body && req.body.title) {
+      formTitle = req.body.title;
+    } else {
+      // If req.body is not available yet, buffer the form data
+      let bodyData = '';
+      req.on('data', chunk => {
+        bodyData += chunk.toString();
+      });
+      req.on('end', () => {
+        try {
+          const formData = new URLSearchParams(bodyData);
+          if (formData.get('title')) {
+            formTitle = formData.get('title');
+          }
+        } catch (error) {
+          console.error('Error parsing form data:', error);
+        }
+      });
+    }
+    const safeFileName = createSafeFileName(formTitle, file.fieldname);
+    cb(null, `${safeFileName}${path.extname(file.originalname)}`);
+  }
+});
+
 const upload = multer({
-  storage: multer.memoryStorage(), // Store files in memory
-  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
 
 // Promisify the multer middleware for use in async functions
@@ -44,18 +93,8 @@ export default async function handler(req, res) {
           title,
           countryName,
           destination,
-          thumbnail: req.files.thumbnail
-            ? {
-                data: req.files.thumbnail[0].buffer,
-                contentType: req.files.thumbnail[0].mimetype,
-              }
-            : undefined,
-          coverPhoto: req.files.coverPhoto
-            ? {
-                data: req.files.coverPhoto[0].buffer,
-                contentType: req.files.coverPhoto[0].mimetype,
-              }
-            : undefined,
+          thumbnail: req.files.thumbnail ? `/img/destinations/${req.files.thumbnail[0].filename}` : undefined,
+          coverPhoto: req.files.coverPhoto ? `/img/destinations/${req.files.coverPhoto[0].filename}` : undefined,
         });
 
         await newDestination.save();
@@ -75,7 +114,7 @@ export default async function handler(req, res) {
           return res.status(200).json(destination);
         } else {
           // Get all destinations
-          const destinations = await Destination.find().sort({ createdAt: -1 });
+          const destinations = await Destination.find().select("thumbnail title countryName").sort({ createdAt: -1 });
           return res.status(200).json(destinations);
         }
       }
@@ -97,6 +136,11 @@ export default async function handler(req, res) {
 
         const { title, countryName, destination, isActive } = req.body;
 
+        const oldDestination = await Destination.findById(id);
+        if (!oldDestination) {
+          return res.status(404).json({ error: "Destination not found" });
+        }
+
         // Update the destination
         const updatedData = {
           title,
@@ -105,18 +149,21 @@ export default async function handler(req, res) {
           isActive,
         };
 
+        // Delete old files if new ones are uploaded
         if (req.files.thumbnail) {
-          updatedData.thumbnail = {
-            data: req.files.thumbnail[0].buffer,
-            contentType: req.files.thumbnail[0].mimetype,
-          };
+          if (oldDestination.thumbnail) {
+            const oldPath = path.join(process.cwd(), 'public', oldDestination.thumbnail);
+            if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+          }
+          updatedData.thumbnail = `/img/destinations/${req.files.thumbnail[0].filename}`;
         }
 
         if (req.files.coverPhoto) {
-          updatedData.coverPhoto = {
-            data: req.files.coverPhoto[0].buffer,
-            contentType: req.files.coverPhoto[0].mimetype,
-          };
+          if (oldDestination.coverPhoto) {
+            const oldPath = path.join(process.cwd(), 'public', oldDestination.coverPhoto);
+            if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+          }
+          updatedData.coverPhoto = `/img/destinations/${req.files.coverPhoto[0].filename}`;
         }
 
         const updatedDestination = await Destination.findByIdAndUpdate(
@@ -151,11 +198,23 @@ export default async function handler(req, res) {
           return res.status(400).json({ error: "Destination ID is required" });
         }
 
-        const deletedDestination = await Destination.findByIdAndDelete(id);
-        if (!deletedDestination) {
+        const destination = await Destination.findById(id);
+        
+        if (!destination) {
           return res.status(404).json({ error: "Destination not found" });
         }
 
+        // Delete associated files
+        if (destination.thumbnail) {
+          const thumbnailPath = path.join(process.cwd(), 'public', destination.thumbnail);
+          if (fs.existsSync(thumbnailPath)) fs.unlinkSync(thumbnailPath);
+        }
+        if (destination.coverPhoto) {
+          const coverPhotoPath = path.join(process.cwd(), 'public', destination.coverPhoto);
+          if (fs.existsSync(coverPhotoPath)) fs.unlinkSync(coverPhotoPath);
+        }
+
+        await Destination.findByIdAndDelete(id);
         return res
           .status(200)
           .json({ message: "Destination deleted successfully" });

@@ -163,13 +163,6 @@ export default function Landing() {
     fetchDestinations();
   }, []);
 
-  // Function to convert buffer data to base64
-  const bufferToBase64 = (bufferData, contentType) => {
-    return `data:${contentType};base64,${Buffer.from(bufferData).toString(
-      "base64"
-    )}`;
-  };
-
   return (
     <>
       <Head>
@@ -461,15 +454,12 @@ export default function Landing() {
                       >
                         <div className="px-6 py-6 border-2">
                           <Image
-                            alt="..."
-                            src={bufferToBase64(
-                              dest.thumbnail.data,
-                              dest.thumbnail.contentType
-                            )}
-                            className="shadow-lg   mx-auto max-w-120-px"
-                            width={1}
-                            height={1}
-                            style={{ width: "8rem", height: "8rem" }}
+                            alt={dest.title}
+                            src={dest.thumbnail} // Now directly using the stored path
+                            className="shadow-lg mx-auto max-w-120-px"
+                            width={128}
+                            height={128}
+                            style={{ width: "8rem", height: "8rem", objectFit: "cover" }}
                           />
                           <div className="pt-6 text-center">
                             <h5 className="text-xl font-bold">{dest.title}</h5>
@@ -479,10 +469,8 @@ export default function Landing() {
                             <div className="mt-6">
                               <Link
                                 href={`/destination/${dest._id}`}
-                                className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8  outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
-                                type="button"
+                                className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8 outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
                               >
-                                {/* <i className="fab fa-twitter"></i> */}
                                 Learn More
                               </Link>
                             </div>
