@@ -10,7 +10,7 @@ import CustomAutoSlider from "components/Slider/Slider";
 
 import landingCSS from "./landing.module.css";
 import PartnerSlider from "components/Slider/MultipleSlide";
-import Head from "next/head";
+import Head from "next/head"; 
 
 // Add these utility functions at the top level
 const sanitizeInput = (input) => {

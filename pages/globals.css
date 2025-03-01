@@ -1,0 +1,124 @@
+/* Add these animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.animate-fade-in-delay {
+  animation: fade-in 0.5s ease-out 0.2s both;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out;
+}
+
+.nav-item {
+  margin: 0.5rem 0.2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link {
+  color: rgb(244, 244, 244);
+  text-transform: uppercase;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+}
+
+/* Create sliding background effect */
+.nav-item::before {
+  content: '';
+  position: absolute; 
+  top: 0; /* Change the initial position */
+  left: -100%; /* Change the initial position */
+  width: 100%;  
+  height: 100%; 
+  background-color: rgb(250, 250, 250); /* Change the background color */
+  transition: all 0.5s ease;  /* Change the duration of the animation */
+  z-index: 1; /* Make sure the background is behind the text */
+}
+
+.nav-link::before {
+  color: rgb(51, 55, 100);
+}
+
+.nav-item:hover::before {
+  left: 0;
+}
+
+.nav-item .nav-link {
+  position: relative;
+  z-index: 2; /* Make sure the text is on top of the background */
+  transition: color 0.5s ease; /* Add a transition effect */
+  text-decoration: none; /* Remove the underline */
+}
+
+.nav-item:hover .nav-link:hover {
+  color: #333764; /* Change the text color */
+}
+
+/* For mobile menu slide in */
+@media (max-width: 1024px) {
+  .nav-item {
+    transform: translateX(-100%); /* Move the menu items off screen */
+    opacity: 0; /* Hide the menu items */
+    animation: slideIn 0.5s forwards; /* Add the slide in animation */
+  }
+  
+  @keyframes slideIn {
+    to {
+      transform: translateX(0); /* Move the menu items back to their original position */
+      opacity: 1; /* Show the menu items */
+    }
+  }
+}
+
+/* Modal Form Styles */
+.modal-open {
+  overflow: hidden;
+}
+
+/* Custom scrollbar for the modal */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #9B51E0;
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #7E3FB5;
+}
+
+/* Form input focus states */
+.form-input:focus, .form-select:focus {
+  box-shadow: 0 0 0 2px rgba(155, 81, 224, 0.2);
+}
