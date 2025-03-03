@@ -1,0 +1,44 @@
+.serviceCard {
+  transition: all 0.3s ease;
+  border: 1px solid #eee;
+  background: white;
+  height: 100%;
+}
+
+.serviceCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.serviceCard:hover .iconWrapper {
+  transform: scale(1.1);
+}
+
+.serviceCard:hover .title {
+  color: #4338ca;
+  font-weight: 700;
+}
+
+.serviceCard:hover .description {
+  color: #1f2937;
+}
+
+.iconWrapper {
+  transition: transform 0.3s ease;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+}
+
+.title {
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.description {
+  transition: color 0.3s ease;
+  color: #6b7280;
+  line-height: 1.625;
+}

@@ -81,13 +81,13 @@ export default function EligibilityModal({ isOpen, onClose }) {
     <div className="fixed inset-0 z-50 overflow-y-auto flex justify-center" style={{top: "0%", height: "100%", left: "50%", overflowY: "auto"}}>
       {/* Blurred Overlay */}
       <div 
-        className="fixed inset-0 backdrop-blur-sm bg-black/50  flex items-center justify-center" style={{left: "15%"}}
+        className="fixed inset-0 backdrop-blur-sm bg-black/50  flex items-center justify-center" style={{left: "15%", top: '2%'}}
         onClick={onClose}
       ></div>
       
       {/* Modal Container */}
-        <div className="fixed inset-0 flex items-center justify-center p-4 m-10 " style={{width: "100%", height: "100%", maxHeight: "100vh", overflowY: "auto", borderRadius: "10px", background: "rgba(134, 99, 167, 0.22)", backdropFilter: "blur(10px)"}}>
-          <div className="bg-white rounded-2xl shadow-2xl w-full md:w-[600px] max-h-[90vh] overflow-y-auto relative" style={{width: "40%" ,padding:"5%"}}>
+        <div className="fixed inset-0 flex items-center justify-center p-4 m-10 " style={{width: "100%", height: "100%", maxHeight: "100vh", overflowY: "auto", borderRadius: "10px", background: "rgba(134, 99, 167, 0.22)", backdropFilter: "blur(10px)", top: "0%", left: "0%"}}>
+          <div className="bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto relative" style={{width: "70%" ,padding:"5%", marginTop: "5%"}}>
             {/* Purple Gradient Header */}
           <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 rounded-t-2xl">
             <h2 className="text-2xl font-bold text-center text-black">
@@ -97,7 +97,7 @@ export default function EligibilityModal({ isOpen, onClose }) {
             <button
               onClick={onClose}
               className="absolute right-4 top-4 text-white/80 hover:text-white transition-colors"
-              style={{top: "10%", left: "90%"}}
+              style={{top: "5%", left: "90%"}}
             >
               <i className="fas fa-times text-xl"></i>
             </button>

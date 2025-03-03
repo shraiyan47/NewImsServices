@@ -1,0 +1,120 @@
+.container {
+  padding-top: 8rem;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.coverSection {
+  position: relative;
+  height: 60vh;
+  margin-bottom: 2rem;
+}
+
+.coverImage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.contentOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.title {
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.countryName {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.destinationContent {
+  margin-top: 2rem;
+  line-height: 1.8;
+}
+
+.destinationContent h3 {
+  color: #2c5282;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+  border-bottom: 2px solid #2c5282;
+  padding-bottom: 0.5rem;
+}
+
+.destinationContent ul {
+  list-style-type: none;
+  padding: 1rem 0;
+}
+
+.destinationContent li {
+  margin: 1rem 0;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.destinationContent li::before {
+  content: "•";
+  color: #4c51bf;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.destinationContent p {
+  margin: 1.5rem 0;
+  color: #4a5568;
+}
+
+.destinationContent strong {
+  color: #2d3748;
+}
+
+.thumbnail {
+  display: block;
+  margin: 2rem auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.backButton {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #4c51bf;
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.backButton:hover {
+  background-color: #434190;
+  transform: translateY(-1px);
+}

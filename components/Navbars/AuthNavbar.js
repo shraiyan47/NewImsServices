@@ -29,14 +29,14 @@ export default function Navbar() {
         className="fixed z-40 w-full bg-opacity-90 backdrop-filter backdrop-blur-lg" 
         style={{ 
           backgroundColor: "rgb(176, 140, 207)",
-          top: "40px" // Add this to position below TopBar
+          top: "36px" // Fixed pixel value for TopBar height
         }}
       >
         <div className="container mx-auto flex flex-wrap items-center justify-between p-4">
           <div className="flex items-center justify-between w-full lg:w-auto">
             <Link href="/">
               <span className="text-white text-lg font-bold">
-                <Image src="/img/logo.svg" alt="IMS SERVICES" height={120} width={120}  style={{filter: "drop-shadow(2px 2px 4px rgb(51, 55, 100))"}} />
+                <Image src="/img/logo.svg" alt="IMS SERVICES" height={120} width={120}  style={{filter: "drop-shadow(2px 2px 4px rgb(199, 191, 207))"}} />
               </span>
             </Link>
             <button

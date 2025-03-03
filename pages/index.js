@@ -10,18 +10,19 @@ import CustomAutoSlider from "components/Slider/Slider";
 
 import landingCSS from "./landing.module.css";
 import PartnerSlider from "components/Slider/MultipleSlide";
-import Head from "next/head"; 
+import Head from "next/head";
+import serviceStyles from "../styles/serviceCard.module.css";
 
 // Add these utility functions at the top level
 const sanitizeInput = (input) => {
   // Basic XSS prevention by escaping HTML special characters
   return input
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
-    .replace(/\//g, '&#x2F;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;")
+    .replace(/\//g, "&#x2F;");
 };
 
 const isValidEmail = (email) => {
@@ -31,6 +32,58 @@ const isValidEmail = (email) => {
 export default function Landing() {
   const [destination, setDestination] = useState([]);
   const [loading, setLoading] = useState(false);
+  const defaultDestinations = [
+    {
+      _id: "StudyintheUK",
+      title: "Study in the UK – World-Class Education & Global Recognition",
+      countryName: "United Kingdom",
+      destination:
+        "<p>The <strong>United Kingdom</strong> is home to some of the world's top universities, including <span style='color:#0073e6; font-weight:bold;'>Oxford</span>, <span style='color:#0073e6; font-weight:bold;'>Cambridge</span>, and <span style='color:#0073e6; font-weight:bold;'>Imperial College London</span>. With high academic standards, diverse programs, and post-study work opportunities, the UK is a top choice for Bangladeshi students.</p> <h3 style='color:#ff6600; border-bottom:2px solid #ff6600; padding-bottom:5px;'>Key Benefits:</h3> <ul style='padding-left:20px;'> <li>🎓 <strong>Globally recognized degrees</strong></li> <li>💼 <strong>2-year post-study work visa</strong></li> <li>💰 <strong>Scholarships for international students</strong></li> <li>🏛️ <strong>Affordable tuition fees compared to the USA</strong></li> <li>📚 <strong>Wide range of programs and institutions</strong></li> </ul> <p style='font-size:16px; color:#333;'>Study in the UK and gain a competitive edge in your career. <strong style='color:#ff6600;'>Contact us</strong> for expert guidance and support throughout the application process.</p>",
+      thumbnail: "/img/destination/UK@3x.png",
+    },
+    {
+      _id: "StudyintheUSA",
+      title: "Study in the USA – Land of Opportunities & Innovation",
+      countryName: "United States",
+      destination:
+        "<p>The <strong>United States</strong> offers cutting-edge education, world-renowned institutions like <span style='color:#0073e6; font-weight:bold;'>Harvard</span> and <span style='color:#0073e6; font-weight:bold;'>MIT</span>, and immense career opportunities.</p> <h3 style='color:#ff6600; border-bottom:2px solid #ff6600; padding-bottom:5px;'>Key Benefits:</h3> <ul style='padding-left:20px;'> <li>📖 <strong>Wide range of courses and research opportunities</strong></li> <li>👨‍💻 <strong>OPT (Optional Practical Training) for work experience</strong></li> <li>🎓 <strong>Scholarships and financial aid</strong></li> <li>🧑‍🔬 <strong>Advanced research and technology facilities</strong></li> </ul> <p style='font-size:16px; color:#333;'>Take your career to the next level by studying in the USA. <strong style='color:#ff6600;'>Reach out to us</strong> for expert guidance on university selection and visa processing.</p>",
+      thumbnail: "/img/destination/USA@3x.png",
+    },
+    {
+      _id: "StudyinCanada",
+      title: "Study in Canada – Affordable Education & High Quality of Life",
+      countryName: "Canada",
+      destination:
+        "<p><strong>Canada</strong> is famous for its quality education, safety, and welcoming atmosphere. With universities like <span style='color:#0073e6; font-weight:bold;'>University of Toronto</span> and <span style='color:#0073e6; font-weight:bold;'>McGill</span>, students get top-notch education and work opportunities.</p> <h3 style='color:#ff6600; border-bottom:2px solid #ff6600; padding-bottom:5px;'>Key Benefits:</h3> <ul style='padding-left:20px;'> <li>💰 <strong>Affordable tuition fees and living costs</strong></li> <li>🛂 <strong>Post-graduation work permit (up to 3 years)</strong></li> <li>🌎 <strong>Immigration-friendly policies and PR opportunities</strong></li> <li>💼 <strong>High employability after graduation</strong></li> </ul> <p style='font-size:16px; color:#333;'>Start your journey towards a bright future in Canada. <strong style='color:#ff6600;'>Contact us</strong> for step-by-step support.</p>",
+      thumbnail: "/img/destination/Canada@3x.png",
+    },
+    {
+      _id: "StudyinAustralia",
+      title: "Study in Australia – High-Quality Education & PR Prospects",
+      countryName: "Australia",
+      thumbnail: "/img/destination/Australia@3x.png",
+
+      destination:
+        "<p><strong>Australia</strong> offers world-class universities like <span style='color:#0073e6; font-weight:bold;'>University of Melbourne</span> and <span style='color:#0073e6; font-weight:bold;'>Australian National University</span>.</p> <h3 style='color:#ff6600; border-bottom:2px solid #ff6600; padding-bottom:5px;'>Key Benefits:</h3> <ul style='padding-left:20px;'> <li>🎓 <strong>2-4 years post-study work visa</strong></li> <li>🏛️ <strong>High-ranking universities and research facilities</strong></li> <li>🛂 <strong>Opportunities for permanent residency</strong></li> <li>💰 <strong>Scholarships and part-time work options</strong></li> </ul> <p style='font-size:16px; color:#333;'>Secure your future with an Australian degree. <strong style='color:#ff6600;'>Contact us</strong> for professional study abroad assistance.</p>",
+    },
+    {
+      _id: "StudyinCyprus",
+      title: "Study in Cyprus – Affordable & Quality European Education",
+      countryName: "Cyprus",
+      destination:
+        "<p><strong>Cyprus</strong> is an emerging study destination, offering affordable tuition, quality European education, and a multicultural environment.</p> <h3 style='color:#ff6600; border-bottom:2px solid #ff6600; padding-bottom:5px;'>Key Benefits:</h3> <ul style='padding-left:20px;'> <li>💰 <strong>Low tuition fees and living costs</strong></li> <li>🏛️ <strong>English-taught programs</strong></li> <li>🌎 <strong>Pathway to Europe and Schengen access</strong></li> <li>💼 <strong>Opportunities for part-time work</strong></li> </ul> <p style='font-size:16px; color:#333;'>Discover the benefits of studying in Cyprus. <strong style='color:#ff6600;'>Contact us</strong> for application guidance.</p>",
+      thumbnail: "/img/destination/Cyprus@3x.png",
+    },
+    {
+      _id: "StudyinMalaysia",
+      title: "Study in Malaysia – Affordable & Globally Recognized Education",
+      countryName: "Malaysia",
+      destination:
+        "Malaysia is an emerging hub for international students, offering high-quality education at an affordable cost. With institutions like University of Malaya and Taylor’s University, students receive world-class education with a lower cost of living. Key Benefits:  💰 Affordable tuition fees and living costs 🏛️ Globally recognized universities and programs 🌎 Multicultural environment with diverse experiences 💼 Opportunities for part-time work and internships  Explore Malaysia as your study destination and enjoy a cost-effective yet high-quality education. Contact us for expert assistance in the admission and visa process.",
+      thumbnail: "/img/destination/Malaysia@3x.png",
+
+    },
+  ];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -46,19 +99,19 @@ export default function Landing() {
   const validateForm = () => {
     // Name validation
     if (formData.name.length < 2 || formData.name.length > 50) {
-      setStatus('Name must be between 2 and 50 characters');
+      setStatus("Name must be between 2 and 50 characters");
       return false;
     }
 
     // Email validation
     if (!isValidEmail(formData.email)) {
-      setStatus('Please enter a valid email address');
+      setStatus("Please enter a valid email address");
       return false;
     }
 
     // Message validation
     if (formData.feedback.length < 10 || formData.feedback.length > 1000) {
-      setStatus('Message must be between 10 and 1000 characters');
+      setStatus("Message must be between 10 and 1000 characters");
       return false;
     }
 
@@ -71,7 +124,7 @@ export default function Landing() {
     const maxLengths = {
       name: 50,
       email: 100,
-      feedback: 1000
+      feedback: 1000,
     };
 
     if (value.length <= maxLengths[name]) {
@@ -87,7 +140,11 @@ export default function Landing() {
     // Check cooldown
     const now = Date.now();
     if (now - lastSubmissionTime < SUBMISSION_COOLDOWN) {
-      setStatus(`Please wait ${Math.ceil((SUBMISSION_COOLDOWN - (now - lastSubmissionTime)) / 1000)} seconds before submitting again`);
+      setStatus(
+        `Please wait ${Math.ceil(
+          (SUBMISSION_COOLDOWN - (now - lastSubmissionTime)) / 1000
+        )} seconds before submitting again`
+      );
       return;
     }
 
@@ -103,13 +160,13 @@ export default function Landing() {
     const sanitizedData = {
       name: sanitizeInput(formData.name.trim()),
       email: sanitizeInput(formData.email.trim().toLowerCase()),
-      feedback: sanitizeInput(formData.feedback.trim())
+      feedback: sanitizeInput(formData.feedback.trim()),
     };
 
     try {
       const response = await fetch("/api/feedback", {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           // Add CSRF token if you have one
           // 'X-CSRF-Token': csrfToken
@@ -134,7 +191,6 @@ export default function Landing() {
     }
   };
 
-
   useEffect(() => {
     const fetchDestinations = async () => {
       setLoading(true);
@@ -143,7 +199,7 @@ export default function Landing() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-          }
+          },
         });
 
         if (!response.ok) {
@@ -162,6 +218,51 @@ export default function Landing() {
 
     fetchDestinations();
   }, []);
+
+  const services = [
+    {
+      title: "University Admission Consultancy",
+      description:
+        "Receive expert guidance for university admissions. We assist you in selecting the best institutions and programs tailored to your career goals.",
+      icon: "/icon/school.png",
+      bgColor: "bg-red-400",
+    },
+    {
+      title: "Scholarship Application Assistance",
+      description:
+        "Get comprehensive support in finding and applying for scholarships. We help you secure financial aid to fund your education abroad.",
+      icon: "/icon/study.png",
+      bgColor: "bg-lightBlue-400",
+    },
+    {
+      title: "Financial Documentation Support",
+      description:
+        "Professional assistance with all financial documentation required for studying abroad. We ensure accuracy and compliance with all requirements.",
+      icon: "/icon/graph.png",
+      bgColor: "bg-teal-200",
+    },
+    {
+      title: "Personalized Career Counseling",
+      description:
+        "Receive personalized career counseling to make informed decisions about your academic and professional future. We guide you every step of the way.",
+      icon: "/icon/study.png",
+      bgColor: "bg-yellow-500",
+    },
+    {
+      title: "Comprehensive Visa Services",
+      description:
+        "Complete support for your visa application process, from documentation to interview preparation, ensuring a smooth and successful application.",
+      icon: "/icon/docs.png",
+      bgColor: "bg-gray-200",
+    },
+    {
+      title: "Test Preparation Programs",
+      description:
+        "Enroll in our comprehensive test preparation programs for IELTS, TOEFL, GRE, and other standardized tests required for international education.",
+      icon: "/icon/report.png",
+      bgColor: "bg-emerald-400",
+    },
+  ];
 
   return (
     <>
@@ -205,7 +306,6 @@ export default function Landing() {
         <h1 className="sr-only">
           Best Student Consultancy Service in Bangladesh - IMS Services
         </h1>
-
         {/* Cover section */}
         <div className="relative pt-16">
           <div className="relative pb-32 flex content-center items-center justify-center min-h-screen-75">
@@ -220,8 +320,7 @@ export default function Landing() {
             </div>
           </div>
         </div>
-
-        {/* Services */}
+       { /* Services */}
         <section id="services" className="pb-30 bg-blueGray-200 ">
           <br />
           <br />
@@ -256,145 +355,54 @@ export default function Landing() {
             <br />
             <br />
             <br />
-            <div className="flex flex-wrap">
-              <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                      {/* <i className="fas fa-award"></i> */}
-                      <img
-                        src={"/icon/school.png"}
-                        alt="college"
-                        width={100}
-                        height={100}
-                      />
+            <div
+              className="flex flex-wrap"
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                marginBottom: "3rem",
+              }}
+            >
+              {services.map((service, index) => (
+                <div
+                  key={index}
+                  className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center"
+                  style={{ padding: "2rem 1rem" }}
+                >
+                  <div
+                    className={`${serviceStyles.serviceCard} rounded-lg p-6`}
+                  >
+                    <div
+                      className={serviceStyles.iconWrapper}
+                      style={{ padding: "1rem 1rem" }}
+                    >
+                      <div
+                        className={`text-white p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-5 shadow-lg rounded-full ${service.bgColor}`}
+                      >
+                        <Image
+                          src={service.icon}
+                          alt={service.title}
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
+                      </div>
                     </div>
-                    <h6 className="text-xl font-semibold">
-                      College & University Admission
-                    </h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Divide details about your product or agency work into
-                      parts. A paragraph describing a feature will be enough.
+                    <h3 className={serviceStyles.title}>{service.title}</h3>
+                    <p
+                      className={serviceStyles.description}
+                      style={{ padding: "1rem 1rem" }}
+                    >
+                      {service.description}
                     </p>
                   </div>
                 </div>
-              </div>
-
-              <div className="w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400">
-                      {/* <i className="fas fa-retweet"></i> */}
-                      <Image
-                        src={"/icon/study.png"}
-                        alt="college"
-                        width={100}
-                        height={100}
-                      />
-                    </div>
-                    <h6 className="text-xl font-semibold">
-                      Scholarship Assistance
-                    </h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Keep you user engaged by providing meaningful information.
-                      Remember that by this time, the user is curious.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-teal-200">
-                      {/* <i className="fas fa-fingerprint"></i> */}
-                      <Image
-                        src={"/icon/graph.png"}
-                        alt="college"
-                        width={100}
-                        height={100}
-                      />
-                    </div>
-                    <h6 className="text-xl font-semibold">
-                      Financial Documentation Guidance
-                    </h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Write a few lines about each one. A paragraph describing a
-                      feature will be enough. Keep you user engaged!
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-yellow-500">
-                      {/* <i className="fas fa-fingerprint"></i> */}
-                      <Image
-                        src={"/icon/study.png"}
-                        alt="college"
-                        width={100}
-                        height={100}
-                      />
-                    </div>
-                    <h6 className="text-xl font-semibold">
-                      Career Counselling
-                    </h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Write a few lines about each one. A paragraph describing a
-                      feature will be enough. Keep you user engaged!
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-gray-200">
-                      {/* <i className="fas fa-fingerprint"></i> */}
-                      <Image
-                        src={"/icon/docs.png"}
-                        alt="college"
-                        width={100}
-                        height={100}
-                      />
-                    </div>
-                    <h6 className="text-xl font-semibold">Visa Services</h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Write a few lines about each one. A paragraph describing a
-                      feature will be enough. Keep you user engaged!
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
-                      {/* <i className="fas fa-fingerprint"></i> */}
-                      <Image
-                        src={"/icon/report.png"}
-                        alt="college"
-                        width={100}
-                        height={100}
-                      />
-                    </div>
-                    <h6 className="text-xl font-semibold">
-                      Test Preparation Classes
-                    </h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Write a few lines about each one. A paragraph describing a
-                      feature will be enough. Keep you user engaged!
-                    </p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
+            <br />
           </div>
         </section>
-
         {/* Find Your Destination */}
         <section
           id="destinations"
@@ -419,72 +427,81 @@ export default function Landing() {
             </div>
           </div>
         </section>
-
-        {/* Destinations  */}
-        <section className="pt-5 pb-20">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center text-center mb-12">
-              <div className="w-full lg:w-6/12 px-4">
-                <h2 className="text-4xl font-semibold">Our Top Destinations</h2>
-                <h3 className="text-2xl font-semibold hidden">
-                  IMS Services covers a wide range of study destinations. We
-                  have successfully placed candidates in top universities across
-                  various sectors, such as law, economics, medicine,
-                  engineering, and business. We cover more than 50 universities
-                  worldwide and have global offices in the UK, USA, Malaysia,
-                  Cyprus and Australia.
-                </h3>
-                <p className="text-lg leading-relaxed m-4 text-blueGray-500">
-                  Explore Top Study Destinations
-                </p>
-              </div>
-            </div>
-            {loading ? (
-              "Loading..."
-            ) : (
-              <>
-                <div className="flex flex-wrap">
-                  {destination
-                    .slice()
-                    .reverse()
-                    .map((dest) => (
-                      <div
-                        key={dest._id}
-                        className="w-full sm:w-6/12 md:w-4/12 lg:w-4/12 xl:w-4/12 mb-8 px-4"
-                      >
-                        <div className="px-6 py-6 border-2">
-                          <Image
-                            alt={dest.title}
-                            src={dest.thumbnail} // Now directly using the stored path
-                            className="shadow-lg mx-auto max-w-120-px"
-                            width={128}
-                            height={128}
-                            style={{ width: "8rem", height: "8rem", objectFit: "cover" }}
-                          />
-                          <div className="pt-6 text-center">
-                            <h5 className="text-xl font-bold">{dest.title}</h5>
-                            <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                              {dest.countryName}
-                            </p>
-                            <div className="mt-6">
-                              <Link
-                                href={`/destination/${dest._id}`}
-                                className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8 outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
-                              >
-                                Learn More
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+       { /* Destinations  */}
+          <section className="pt-5 pb-20">
+            <div className="container mx-auto px-4">
+              <div className="flex flex-wrap justify-center text-center mb-12">
+                <div className="w-full lg:w-10/12 px-4">
+            <h2 className="text-4xl font-semibold pb-2">Study Abroad with the Best Student Consultancy in Bangladesh</h2>
+            <h2 className="text-4xl font-semibold pt-2">Your Path to Success!</h2>
+            <h3 className="text-2xl font-semibold hidden">
+              IMS Services covers a wide range of study destinations. We
+              have successfully placed candidates in top universities across
+              various sectors, such as law, economics, medicine,
+              engineering, and business. We cover more than 50 universities
+              worldwide and have global offices in the UK, USA, Malaysia,
+              Cyprus and Australia.
+            </h3>
+            <p className="text-lg leading-relaxed m-4 text-blueGray-500">
+              IMS Services is the leading international student consultancy
+              in Bangladesh with global offices in UK, USA & Australia. We
+              provide expert guidance for university admissions,
+              scholarships & visa services.
+            </p> 
+            <p className="text-lg leading-relaxed m-4 text-blueGray-500 hidden">
+              Explore Top Study Destinations
+            </p>
                 </div>
-              </>
-            )}
-          </div>
-        </section>
-
-        {/* Statastics  */}
+              </div>
+              {loading ? (
+                "Loading..."
+              ) : (
+                <>
+            <div className="flex flex-wrap">
+              {(destination.length === 0 ? defaultDestinations : destination)
+                .slice()
+                .reverse()
+                .map((dest) => (
+                  <div
+              key={dest._id}
+              className="w-full sm:w-6/12 md:w-4/12 lg:w-4/12 xl:w-4/12 mb-8 px-4"
+                  >
+              <div className="px-6 py-6 border-2">
+                <Image
+                  alt={dest.title}
+                  src={(dest?.thumbnail)?dest?.thumbnail:"/img/destination/UK@3x.png"} // Now directly using the stored path
+                  className="shadow-lg mx-auto max-w-120-px"
+                  width={128}
+                  height={128}
+                  style={{
+                    width: "8rem",
+                    height: "8rem",
+                    objectFit: "cover",
+                  }}
+                />
+                <div className="pt-6 text-center">
+                  <h5 className="text-xl font-bold">{dest.title}</h5>
+                  <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
+                    {dest.countryName}
+                  </p>
+                  <div className="mt-6">
+                    <Link
+                href={`/destination/${dest._id}`}
+                className="bg-royal-purple-500 text-white font-semibold w-[4rem] h-8 outline-none focus:outline-none mr-1 mb-1 px-2 hover:bg-gray-800 hover:font-bold rounded-lg"
+                    >
+                Learn More
+                    </Link>
+                  </div>
+                </div>
+              </div>
+                  </div>
+                ))}
+            </div>
+                </>
+              )}
+            </div>
+          </section>
+          {/* Statastics  */}
         <section className="py-10 px-4">
           <div className={landingCSS.sectionStatics}>
             <div
@@ -518,7 +535,6 @@ export default function Landing() {
             </div>
           </div>
         </section>
-
         {/* Testimonials */}
         <section id="testimonials" className="pt-10 pb-48 ">
           <div className="container mx-auto px-4">
@@ -555,7 +571,6 @@ export default function Landing() {
             </div>
           </div>
         </section>
-
         {/* Partners */}
         <section id="partners" className="pt-10 pb-48 ">
           <div className="container mx-auto px-4">
@@ -571,7 +586,6 @@ export default function Landing() {
             <PartnerSlider />
           </div>
         </section>
-
         {/* <section className="relative py-20">
           <div
             className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
@@ -662,7 +676,6 @@ export default function Landing() {
             </div>
           </div>
         </section> */}
-
         {/* Team members  */}
         {/* <section className="pt-20 pb-48">
           <div className="container mx-auto px-4">
@@ -820,7 +833,6 @@ export default function Landing() {
             </div>
           </div>
         </section> */}
-
         {/* Contact Us  */}
         <section id="contact" className="pb-20 relative block bg-blueGray-800">
           <div
@@ -908,7 +920,6 @@ export default function Landing() {
             </div>
           </div>
         </section>
-
         {/* Contact form and Map */}
         <section className="relative block py-24 lg:pt-0 bg-blueGray-800">
           <div className="container mx-auto px-4">
@@ -916,7 +927,7 @@ export default function Landing() {
               {/* Contact Form */}
               <div className="w-full lg:w-6/12 px-4 mb-8">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
-                <div className="flex-auto p-5 lg:p-10">
+                  <div className="flex-auto p-5 lg:p-10">
                     <form onSubmit={handleSubmit} noValidate>
                       <h4 className="text-2xl font-semibold">
                         Leave us a message
