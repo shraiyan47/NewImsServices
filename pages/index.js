@@ -264,6 +264,23 @@ export default function Landing() {
     },
   ];
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 500);
+    };
+
+    // Set initial value
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
       <Head>
@@ -307,13 +324,19 @@ export default function Landing() {
           Best Student Consultancy Service in Bangladesh - IMS Services
         </h1>
         {/* Cover section */}
-        <div className="relative pt-16">
-          <div className="relative pb-32 flex content-center items-center justify-center min-h-screen-75">
+        <div className="relative pt-32">
+          <div className="relative flex content-center items-center justify-center min-h-screen-100"  style={{paddingBottom: "43rem"}}>
             {/* Cover Image on Background Start*/}
             <div
               className="absolute top-0 w-full h-full bg-center bg-cover"
               style={{
-                backgroundImage: "url('/img/CoverWA.png')",
+                backgroundImage: `url('${
+                  isMobile
+                    ? "/img/Website Cover_Mobile Version@2x.png"
+                    : "/img/CoverWA.png"
+                }')`,
+                top: "0.5rem",
+                
               }}
             >
               {/* Cover Image on Background End */}

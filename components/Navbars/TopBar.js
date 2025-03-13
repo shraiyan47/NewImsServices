@@ -13,6 +13,18 @@ export default function TopBar() {
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap items-center justify-between">
             <div className="hidden md:flex items-center justify-center space-x-6">
+              <div style={{ paddingRight: "2rem" }}>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  style={{
+                    background: "linear-gradient(to right, #B08CCF, #320061)",
+                    boxShadow: "0 4px 15px rgb(202, 146, 255)",
+                  }}
+                  className="text-white font-bold py-1.5 px-6 rounded-full hover:opacity-90 transition-all duration-300 transform hover:scale-105 "
+                >
+                  Start Now
+                </button>
+              </div>
               <a
                 href="tel:+8801781913380"
                 className="text-white hover:text-gray-300 flex items-center mr-4"
@@ -27,50 +39,33 @@ export default function TopBar() {
                 <i className="fas fa-envelope text-purple-400 text-xs mr-4"></i>
                 <span className="text-sm">info@imsservicesbd.com</span>
               </a>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                style={{
-                  background: "linear-gradient(to right, #B08CCF, #320061)",
-                  boxShadow: "0 4px 15px rgb(202, 146, 255)",
-                  position: "fixed",
-                  left: "40%"
-                }}
-                className=" md:block text-white font-bold py-1.5 px-6 rounded-full hover:opacity-90 transition-all duration-300 transform hover:scale-105" 
-              >
-                Start Now
-              </button>
             </div>
 
             {/* Mobile View */}
             <div className="flex md:hidden w-full justify-start space-x-6">
+              <div style={{ paddingRight: "2rem" }}>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  style={{
+                    background: "linear-gradient(to right, #B08CCF, #320061)",
+                    boxShadow: "0 4px 15px rgb(202, 146, 255)",
+                  }}
+                  className="text-white font-bold py-1.5 px-6 rounded-full hover:opacity-90 transition-all duration-300 transform hover:scale-105"
+                >
+                  Start Now
+                </button>
+              </div>
+
               <a href="tel:+8801781913380" className="text-white mr-4">
                 <i className="fas fa-phone text-lg"></i>
               </a>
-              <a href="mailto:info@imsservicesbd.com" className="text-white mr-4">
+              <a
+                href="mailto:info@imsservicesbd.com"
+                className="text-white mr-4"
+              >
                 <i className="fas fa-envelope text-lg"></i>
               </a>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                style={{
-                  background: "linear-gradient(to right, #B08CCF, #320061)",
-                  boxShadow: "0 4px 15px rgb(202, 146, 255)",
-                }}
-                className=" md:block text-white font-bold py-1.5 px-6 rounded-full hover:opacity-90 transition-all duration-300 transform hover:scale-105"
-              >
-                Start Now
-              </button>
             </div>
-
-            {/* <button 
-              onClick={() => setIsModalOpen(true)}
-              style={{ 
-                background: "linear-gradient(to right, #B08CCF, #320061)",
-                boxShadow: "0 4px 15px rgb(202, 146, 255)"
-              }}
-              className=" md:block text-white font-bold py-1.5 px-6 rounded-full hover:opacity-90 transition-all duration-300 transform hover:scale-105"
-            >
-              Start Now
-            </button> */}
           </div>
         </div>
       </div>
